@@ -14,6 +14,8 @@ const mongo_url = "mongodb://127.0.0.1:27017/animal";
 const animal_db = "animal";
 let animalCollection;
 let userCollection;
+
+/*
 MongoClient.connect(mongo_url)
     .then(client => {
     console.log('MongoDB connected');
@@ -87,7 +89,7 @@ const upload = multer({
     fileFilter : FileFilter,
     limits: { fileSize: 10 * 1024 * 1024,files: 10,parts: 10 } // 5메가로 용량 제한
 });
-
+*/
 
 
 //로그인 API

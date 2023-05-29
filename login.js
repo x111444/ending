@@ -32,10 +32,14 @@ const connection = mysql.createConnection({
     password: '10200411',
     database: 'login',
 });
+
 const corsOptions = {
     origin: 'http://localhost:9000',
     optionsSuccessStatus: 200 // 성공 응답 코드
 };
+*/
+app.use(cors())
+/*
 app.use(cors(corsOptions));
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(session({

@@ -292,7 +292,7 @@ app.put('/api/diary/animal/birth', (req, res) => {
     
 });
 
-//짐승 이미지 추가
+//짐승 이미지 추가 여러개
 app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => {
     console.log('animal adjust image');
     console.log(req.body);
@@ -327,7 +327,7 @@ app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => 
       console.log('Error:', err);
     }
   });
-
+//짐승 이미지 추가 1개
   app.post('/api/diary/animal/image', upload.single('files'), async (req, res) => {
     console.log('animal adjust image');
     console.log(req.body);
@@ -362,6 +362,45 @@ app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => 
       console.log('Error:', err);
     }
   });
+
+// 짐승 이미지 불러오기
+app.get('/api/diary//animal/images', (req, res) => {
+    console.log('try get image');
+    console.log(req.query);
+    const { id, animal_name} = req.query;
+    console.log(id)
+    userCollection.findOne({ user_id: id })
+        .then((user_data) => {
+        if (user_data == null) {
+            console.log("no data fuck");
+            res.status(409).send('id not exists');
+            return;
+        }
+        else {
+            const animals_image = animalCollection.find({ user_id: id, name: animal_name  }, { animal_image: 1 });
+            const images = [];
+            for (const path of animals_image) {
+                fs.readFile(path, (err, data) => {
+                    if (err) {
+                      console.error('Error reading image:', err);
+                    }
+                    else{
+                      // 이미지 MIME 타입 설정
+                      res.setHeader('Content-Type', 'image/jpeg');
+                      images.push(data)
+                    }
+                  });
+               
+            }
+            res.status(200).send(images);
+        }
+    })
+        .catch((err) => {
+        res.status(501).send('mongo error in find id');
+        console.log('mongo error in find id', err);
+        return;
+    });
+});
 
 
 //짐승 삭제
@@ -398,6 +437,7 @@ app.delete('/api/diary/animal', (req, res) => {
     });
     
 });
+
 //짐승들 가져오기
 app.get('/api/diary/animals', (req, res) => {
     console.log('dairy man');

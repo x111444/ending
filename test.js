@@ -7,7 +7,7 @@ const fs = require("fs");
 */
 
 /*
-axios.post('http://localhost:3000/api/diary/animal', {
+axios.post('http://3.88.1.192:3000/api/diary/animal', {
       id: 'user1234@naver.com',
       animal_name: 'dog',
       birth: '2020-01-01',
@@ -18,7 +18,7 @@ axios.post('http://localhost:3000/api/diary/animal', {
   console.log(err)
 });
 
- axios.post('http://localhost:3000/api/diary/animal', {
+ axios.post('http://3.88.1.192:3000/api/diary/animal', {
     id: 'user1234@naver.com',
     animal_name: 'cat',
     birth: '2020-01-01',
@@ -29,7 +29,7 @@ axios.post('http://localhost:3000/api/diary/animal', {
   console.log(err)
 });
 
- axios.put('http://localhost:3000/api/diary/animal/weight', {
+ axios.put('http://3.88.1.192:3000/api/diary/animal/weight', {
     id: 'user1234@naver.com',
     animal_name: 'dog',
     weights: [20, 22, 21]
@@ -39,7 +39,7 @@ axios.post('http://localhost:3000/api/diary/animal', {
   console.log(err)
 });
 
-axios.put('http://localhost:3000/api/diary/animal/weight', {
+axios.put('http://3.88.1.192:3000/api/diary/animal/weight', {
     id: 'user1234@naver.com',
     animal_name: 'cat',
     weights: [5, 6, 7]
@@ -49,7 +49,7 @@ axios.put('http://localhost:3000/api/diary/animal/weight', {
   console.log(err)
 });
 
-axios.put('http://localhost:3000/api/diary/animal/event', {
+axios.put('http://3.88.1.192:3000/api/diary/animal/event', {
     id: 'user1234@naver.com',
     animal_name: 'dog',
     events: ['vaccination', 'grooming']
@@ -59,7 +59,7 @@ axios.put('http://localhost:3000/api/diary/animal/event', {
   console.log(err)
 });
 
-axios.put('http://localhost:3000/api/diary/animal/event', {
+axios.put('http://3.88.1.192:3000/api/diary/animal/event', {
     id: 'user1234@naver.com',
     animal_name: 'cat',
     events: ['vaccination', 'grooming']
@@ -69,7 +69,7 @@ axios.put('http://localhost:3000/api/diary/animal/event', {
     console.log(err)
   });
 
-axios.put('http://localhost:3000/api/diary/animal/birth', {
+axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
     id: 'user1234@naver.com',
     animal_name: 'dog',
     birth: '2021-01-01'
@@ -80,7 +80,7 @@ axios.put('http://localhost:3000/api/diary/animal/birth', {
 });
 
 
-axios.put('http://localhost:3000/api/diary/animal/birth', {
+axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
     id: 'user1234@naver.com',
     animal_name: 'cat',
     birth: '2021-01-01'
@@ -90,7 +90,7 @@ axios.put('http://localhost:3000/api/diary/animal/birth', {
   console.log(err)
 });
 
-axios.put('http://localhost:3000/api/diary/animal/birth', {
+axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
     id: 'user1234@naver.com',
     animal_name: 'cat',
     birth: '2021-01-01'
@@ -101,7 +101,7 @@ axios.put('http://localhost:3000/api/diary/animal/birth', {
 
 
 //get
-axios.get('http://localhost:3000/api/diary/animals', {
+axios.get('http://3.88.1.192:3000/api/diary/animals', {
         params: {
             id: 'user1234@naver.com'
         }
@@ -114,7 +114,7 @@ axios.get('http://localhost:3000/api/diary/animals', {
     });
 
 
-axios.get('http://localhost:3000/api/diary/animal', {
+axios.get('http://3.88.1.192:3000/api/diary/animal', {
       params: {
         id: 'user1234@naver.com',
         animal_name: 'cat'
@@ -127,7 +127,7 @@ axios.get('http://localhost:3000/api/diary/animal', {
       console.log(err.response.data);
     });
 
-axios.get('http://localhost:3000/api/diary/animal/event', {
+axios.get('http://3.88.1.192:3000/api/diary/animal/event', {
   params: {
     id: 'user1234@naver.com',
     animal_name: 'cat'
@@ -138,7 +138,7 @@ axios.get('http://localhost:3000/api/diary/animal/event', {
   console.log(err.response.data);
 });
 
-axios.get('http://localhost:3000/api/diary/animal/weights', {
+axios.get('http://3.88.1.192:3000/api/diary/animal/weights', {
   params: {
     id: 'user1234@naver.com',
     animal_name: 'cat'
@@ -160,7 +160,7 @@ formData.append('animal_name', 'dog');
 formData.append('files', fs.createReadStream(imagePath1));
 formData.append('files', fs.createReadStream(imagePath2));
 
-axios.post('http://localhost:3000/api/diary/animal/image', formData, {headers: {
+axios.post('http://3.88.1.192:3000/api/diary/animal/image', formData, {headers: {
   //'Content-Type': 'multipart/form-data',
 }})
   .then((response) => {
@@ -172,7 +172,7 @@ axios.post('http://localhost:3000/api/diary/animal/image', formData, {headers: {
 
 
 /*
-axios.delete('http://localhost:3000/api/diary/animal', {
+axios.delete('http://3.88.1.192:3000/api/diary/animal', {
     data: {
       id: 'user1234@naver.com',
       animal_name: 'dog'

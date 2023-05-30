@@ -15,7 +15,7 @@ const animal_db = "animal";
 let animalCollection;
 let userCollection;
 
-/*
+
 MongoClient.connect(mongo_url)
     .then(client => {
     console.log('MongoDB connected');
@@ -37,9 +37,9 @@ const corsOptions = {
     origin: 'http://localhost:9000',
     optionsSuccessStatus: 200 // 성공 응답 코드
 };
-*/
+
 app.use(cors())
-/*
+
 app.use(cors(corsOptions));
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(session({
@@ -93,7 +93,7 @@ const upload = multer({
     fileFilter : FileFilter,
     limits: { fileSize: 10 * 1024 * 1024,files: 10,parts: 10 } // 5메가로 용량 제한
 });
-*/
+
 
 
 //로그인 API

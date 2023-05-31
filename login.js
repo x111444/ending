@@ -12,8 +12,8 @@ const app = express();
 //mongodb 연결정보
 const mongo_url = "mongodb://127.0.0.1:27017/animal";
 const animal_db = "animal";
-const username = 'x111444';
-const password = '10200411';
+const username = 'user';
+const password = 'user';
 const auth = { username: username, password: password };
 let animalCollection;
 let userCollection;

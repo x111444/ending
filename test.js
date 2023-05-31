@@ -6,7 +6,7 @@ const fs = require("fs");
 2.get 명령 문제 해결 필요
 */
 
-/*
+
 axios.post('http://3.88.1.192:3000/api/diary/animal', {
       id: 'user1234@naver.com',
       animal_name: 'dog',
@@ -15,7 +15,7 @@ axios.post('http://3.88.1.192:3000/api/diary/animal', {
 }).then((rep)=>{
   console.log("add animal is clear ")
 }).catch((err) => {
-  console.log(err)
+  console.log(err.response.data)
 });
 
  axios.post('http://3.88.1.192:3000/api/diary/animal', {
@@ -26,9 +26,9 @@ axios.post('http://3.88.1.192:3000/api/diary/animal', {
 }).then((rep)=>{
   console.log("add animal is clear ")
 }).catch((err) => {
-  console.log(err)
+  console.log(err.response.data)
 });
-
+/*
  axios.put('http://3.88.1.192:3000/api/diary/animal/weight', {
     id: 'user1234@naver.com',
     animal_name: 'dog',
@@ -36,7 +36,7 @@ axios.post('http://3.88.1.192:3000/api/diary/animal', {
 }).then((rep)=>{
   console.log("add animal weight is clear ")
 }).catch((err) => {
-  console.log(err)
+  console.log(err.response.data)
 });
 
 axios.put('http://3.88.1.192:3000/api/diary/animal/weight', {
@@ -46,7 +46,7 @@ axios.put('http://3.88.1.192:3000/api/diary/animal/weight', {
 }).then((rep)=>{
   console.log("add animal weight is clear ")
 }).catch((err) => {
-  console.log(err)
+  console.log(err.response.data)
 });
 
 axios.put('http://3.88.1.192:3000/api/diary/animal/event', {
@@ -56,7 +56,7 @@ axios.put('http://3.88.1.192:3000/api/diary/animal/event', {
 }).then((rep)=>{
   console.log("add animal event is clear ")
 }).catch((err) => {
-  console.log(err)
+  console.log(err.response.data)
 });
 
 axios.put('http://3.88.1.192:3000/api/diary/animal/event', {
@@ -66,7 +66,7 @@ axios.put('http://3.88.1.192:3000/api/diary/animal/event', {
   }).then((rep)=>{
     console.log("add animal event is clear ")
   }).catch((err) => {
-    console.log(err)
+    console.log(err.response.data)
   });
 
 axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
@@ -76,7 +76,7 @@ axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
 }).then((rep)=>{
   console.log("add animal birth is clear ")
 }).catch((err) => {
-  console.log(err)
+  console.log(err.response.data)
 });
 
 
@@ -87,7 +87,7 @@ axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
 }).then((rep)=>{
   console.log("add animal birth is clear ")
 }).catch((err) => {
-  console.log(err)
+  console.log(err.response.data)
 });
 
 axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
@@ -96,7 +96,9 @@ axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
     birth: '2021-01-01'
 }).then((rep)=>{
   console.log("add animal birth is clear ")
-});
+}).catch((err) => {
+  console.log(err.response.data)
+});;
 
 
 
@@ -148,7 +150,7 @@ axios.get('http://3.88.1.192:3000/api/diary/animal/weights', {
 }) .catch((err) => {
   console.log(err.response.data);
 });
-*/
+
 
 
 //img

@@ -16,7 +16,7 @@ let animalCollection;
 let userCollection;
 
 
-MongoClient.connect(mongo_url)
+MongoClient.connect(mongo_url, { auth: { user: x111444, password: 10200411 } })
     .then(client => {
     console.log('MongoDB connected');
     const db = client.db(animal_db);
@@ -40,7 +40,7 @@ const corsOptions = {
 
 app.use(cors())
 
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(session({
     secret: 'mysecretkey',

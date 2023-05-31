@@ -12,11 +12,14 @@ const app = express();
 //mongodb 연결정보
 const mongo_url = "mongodb://127.0.0.1:27017/animal";
 const animal_db = "animal";
+const username = 'x111444';
+const password = '10200411';
+const auth = { username: username, password: password };
 let animalCollection;
 let userCollection;
 
 
-MongoClient.connect(mongo_url, { auth: { user: 'x111444', password: '10200411' } })
+MongoClient.connect(mongo_url, { auth: auth })
     .then(client => {
     console.log('MongoDB connected');
     const db = client.db(animal_db);

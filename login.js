@@ -30,7 +30,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '10200411',
-    database: 'login',
+    database: 'user',
 });
 
 const corsOptions = {

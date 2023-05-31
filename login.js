@@ -16,7 +16,7 @@ let animalCollection;
 let userCollection;
 
 
-MongoClient.connect(mongo_url, { auth: { user: x111444, password: 10200411 } })
+MongoClient.connect(mongo_url, { auth: { user: 'x111444', password: '10200411' } })
     .then(client => {
     console.log('MongoDB connected');
     const db = client.db(animal_db);

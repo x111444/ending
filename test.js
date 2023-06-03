@@ -162,8 +162,8 @@ formData.append('animal_name', 'dog');
 formData.append('files', fs.createReadStream(imagePath1));
 formData.append('files', fs.createReadStream(imagePath2));
 
-axios.post('http://3.88.1.192:3000/api/diary/animal/image', formData, {headers: {
-  //'Content-Type': 'multipart/form-data',
+axios.post('http://3.88.1.192:3000/api/diary/animal/images', formData, {headers: {
+  'Content-Type': 'multipart/form-data',
 }})
   .then((response) => {
     console.log(response.data);

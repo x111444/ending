@@ -331,7 +331,7 @@ app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => 
     }
   });
 //짐승 이미지 추가 1개
-  app.post('/api/diary/animal/image', upload.single('files'), async (req, res) => {
+  app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
     console.log('animal adjust image');
     console.log(req.body);
     const file = req.file

@@ -18,8 +18,8 @@ const auth = { username: username, password: password };
 let animalCollection;
 let userCollection;
 
-
-MongoClient.connect(mongo_url, { auth: auth })
+//, { auth: auth }
+MongoClient.connect(mongo_url)
     .then(client => {
     console.log('MongoDB connected');
     const db = client.db(animal_db);

@@ -334,6 +334,7 @@ app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => 
   app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
     console.log('animal adjust image');
     console.log(req.body);
+    console.log(req.file)
     const file = req.file
     const { id, animal_name } = req.body;
     

@@ -85,9 +85,7 @@ const FileFilter = (req, file, cb) => {
 
 const upload = multer({
     storage: multer.diskStorage({ // 저장한공간 정보 : 하드디스크에 저장
-        destination(req, file, cb) { // 저장 위치
-            cb(null, 'uploads/'); // uploads라는 폴더 안에 저장
-        },
+        destination: process.env.UPLOAD_DIR || 'uploads/',
         filename(req, file, cb) { // 파일명을 어떤 이름으로 올릴지
             const ext = path.extname(file.originalname); // 파일의 확장자
             cb(null, path.basename(file.originalname, ext) + Date.now() + ext); // 파일이름 + 날짜 + 확장자 이름으로 저장

@@ -87,8 +87,10 @@ const upload = multer({
     storage: multer.diskStorage({ // 저장한공간 정보 : 하드디스크에 저장
         destination: process.env.UPLOAD_DIR || 'uploads/',
         filename(req, file, cb) { // 파일명을 어떤 이름으로 올릴지
+            console.log('clear_hear1')
             const ext = path.extname(file.originalname); // 파일의 확장자
             cb(null, path.basename(file.originalname, ext) + Date.now() + ext); // 파일이름 + 날짜 + 확장자 이름으로 저장
+            console.log('clear_hear2')
         }
     }),
     fileFilter : FileFilter,
@@ -329,7 +331,7 @@ app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => 
     }
   });
 //짐승 이미지 추가 1개
-  app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
+app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
     console.log('animal adjust image');
     console.log(req.body);
     console.log(req.file)

@@ -32,7 +32,7 @@ MongoClient.connect(mongo_url)
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '10200411',
+    password: '',
     database: 'user',
 });
 

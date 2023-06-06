@@ -386,8 +386,9 @@ app.get('/api/diary/animal/images', async (req, res) => {
             
             const images = [];
             console.log(animal_images)
-            for (const animal of animal_images) {
-                const data = await fs.promises.readFile(animal.animal_image);
+            for (const animal of animal_images.animal_images) {
+                console.log(animal)
+                const data = await fs.promises.readFile(animal);
                 images.push(data);
             }
 

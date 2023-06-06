@@ -118,7 +118,7 @@ app.post('/api/login', (req, res) => {
                 // 로그인 성공 처리를 합니다.
                 //const user:login_state = {id:results[0] ,state:true};
                 //req.session.user = user;
-                //res.json({ success: true, message: 'Login successful', user: email });
+                res.json({ success: true, message: 'Login successful', user: id });
             }
         }
     });

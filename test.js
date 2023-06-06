@@ -163,9 +163,10 @@ axios.post('http://3.88.1.192:3000/api/login', {
       }
     })
     .catch(error => {
-      console.error('로그인 요청 에러:');
+      console.error('로그인 요청 에러: ',error.response.data);
       // 에러 처리를 수행합니다.
-    });
+  });
+
 
 axios.get('http://3.88.1.192:3000/isLoggedIn', {
    params: {

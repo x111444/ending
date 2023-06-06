@@ -6,7 +6,7 @@ const fs = require("fs");
 2.get 명령 문제 해결 필요
 */
 
-/*
+
 axios.post('http://3.88.1.192:3000/api/diary/animal', {
       id: 'user1234@naver.com',
       animal_name: 'dog',
@@ -29,45 +29,59 @@ axios.post('http://3.88.1.192:3000/api/diary/animal', {
   console.log(err.response.data)
 });
 
- axios.put('http://3.88.1.192:3000/api/diary/animal/weight', {
-    id: 'user1234@naver.com',
-    animal_name: 'dog',
-    weights: [20, 22, 21]
-}).then((rep)=>{
+axios.put('http://3.88.1.192:3000/api/diary/animal/weight', {
+  id: 'user1234@naver.com',
+  animal_name: 'dog',
+  weights: [
+    { date: moment('2023-06-01').format('YYYY-MM-DD'), value: 20 },
+    { date: moment('2023-06-02').format('YYYY-MM-DD'), value: 22 },
+    { date: moment('2023-06-03').format('YYYY-MM-DD'), value: 21 }
+  ]
+}).then((rep) => {
   console.log("add animal weight is clear ")
 }).catch((err) => {
   console.log(err.response.data)
 });
 
 axios.put('http://3.88.1.192:3000/api/diary/animal/weight', {
-    id: 'user1234@naver.com',
-    animal_name: 'cat',
-    weights: [5, 6, 7]
-}).then((rep)=>{
+  id: 'user1234@naver.com',
+  animal_name: 'cat',
+  weights: [
+    { date: moment('2023-06-01').format('YYYY-MM-DD'), value: 5 },
+    { date: moment('2023-06-02').format('YYYY-MM-DD'), value: 6 },
+    { date: moment('2023-06-03').format('YYYY-MM-DD'), value: 7 }
+  ]
+}).then((rep) => {
   console.log("add animal weight is clear ")
 }).catch((err) => {
   console.log(err.response.data)
 });
 
 axios.put('http://3.88.1.192:3000/api/diary/animal/event', {
-    id: 'user1234@naver.com',
-    animal_name: 'dog',
-    events: ['vaccination', 'grooming']
-}).then((rep)=>{
+  id: 'user1234@naver.com',
+  animal_name: 'dog',
+  events: [
+    { date: moment('2023-06-01').format('YYYY-MM-DD'), value: 'vaccination' },
+    { date: moment('2023-06-02').format('YYYY-MM-DD'), value: 'grooming' }
+  ]
+}).then((rep) => {
   console.log("add animal event is clear ")
 }).catch((err) => {
   console.log(err.response.data)
 });
 
 axios.put('http://3.88.1.192:3000/api/diary/animal/event', {
-    id: 'user1234@naver.com',
-    animal_name: 'cat',
-    events: ['vaccination', 'grooming']
-  }).then((rep)=>{
-    console.log("add animal event is clear ")
-  }).catch((err) => {
-    console.log(err.response.data)
-  });
+  id: 'user1234@naver.com',
+  animal_name: 'cat',
+  events: [
+    { date: moment('2023-06-01').format('YYYY-MM-DD'), value: 'vaccination' },
+    { date: moment('2023-06-02').format('YYYY-MM-DD'), value: 'grooming' }
+  ]
+}).then((rep) => {
+  console.log("add animal event is clear ")
+}).catch((err) => {
+  console.log(err.response.data)
+});
 
 axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
     id: 'user1234@naver.com',
@@ -171,7 +185,7 @@ axios.post('http://3.88.1.192:3000/api/diary/animal/image', formData, {headers: 
   .catch((error) => {
     console.log(error.response.data);
   });
-*/
+
   axios.get('http://3.88.1.192:3000/api/diary/animal/images', {
     params: {
       id: 'user1234@naver.com',

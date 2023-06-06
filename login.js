@@ -45,11 +45,13 @@ app.use(cors())
 
 //app.use(cors(corsOptions));
 app.use(bodyParser.json({ limit: '10mb' }));
+
 app.use(session({
     secret: 'mysecretkey',
     resave: false,
     saveUninitialized: true
 }));
+
 // MySQL 연결
 connection.connect((error) => {
     if (error) {
@@ -101,9 +103,9 @@ const upload = multer({
 //로그인 API
 app.post('/api/login', (req, res) => {
     console.log('login man');
-    const { email, password } = req.body;
+    const { id, password } = req.body;
     // MySQL 데이터베이스에서 사용자 정보를 확인합니다.
-    connection.query('SELECT * FROM users WHERE user_data = ? AND password = ?', [email, password], (error, results) => {
+    connection.query('SELECT * FROM users WHERE user_data = ? AND password = ?', [id, password], (error, results) => {
         if (error) {
             console.error('MySQL 쿼리 오류:', error);
             res.status(500).json({ success: false, message: 'Internal server error' });
@@ -121,8 +123,9 @@ app.post('/api/login', (req, res) => {
         }
     });
 });
+
 //로그인 체크api
-/*
+
 app.get('/api/checkLogin', (req, res) => {
   console.log('check man');
   if (req.session.user) {
@@ -131,7 +134,8 @@ app.get('/api/checkLogin', (req, res) => {
     res.status(401).json({ success: false, message: 'not login' });;
   }
 });
-*/
+
+
 //회원가입 API
 app.post('/api/signup', (req, res) => {
     console.log('signup man');
@@ -206,6 +210,7 @@ app.post('/api/diary/animal', (req, res) => {
     });
 
 });
+
 //짐승 무게 수정
 app.put('/api/diary/animal/weight', (req, res) => {
     console.log('animal weight');
@@ -235,6 +240,7 @@ app.put('/api/diary/animal/weight', (req, res) => {
     });
     
 });
+
 //짐승 이벤트 수정
 app.put('/api/diary/animal/event', (req, res) => {
     console.log('animal event');
@@ -263,6 +269,7 @@ app.put('/api/diary/animal/event', (req, res) => {
     });
     
 });
+
 //짐승 생일 변경
 app.put('/api/diary/animal/birth', (req, res) => {
     console.log('animal adjust birth');
@@ -327,6 +334,7 @@ app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => 
       console.log('Error:', err);
     }
   });
+
 //짐승 이미지 추가 1개
 app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
     console.log('animal adjust image');
@@ -462,6 +470,8 @@ app.get('/api/diary/animals', (req, res) => {
         return;
     });
 });
+
+
 //짐승 가져오기
 app.get('/api/diary/animal', (req, res) => {
     console.log('dairy man');
@@ -488,18 +498,21 @@ app.get('/api/diary/animal', (req, res) => {
         return;
     });
 });
+
 //짐승 이름들만 가져오기
 app.get('/api/diary/animals/name', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
     const { id } = req.query;
 });
+
 //짐승들 이벤트만 가져오기
 app.get('/api/diary/animals/event', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
     const { id } = req.query;
 });
+
 //짐승 이벤트만 가져오기
 app.get('/api/diary/animal/event', (req, res) => {
     console.log('dairy man');
@@ -527,6 +540,7 @@ app.get('/api/diary/animal/event', (req, res) => {
         return;
     });
 });
+
 //짐승 무게만 가져오기
 app.get('/api/diary/animal/weights', (req, res) => {
     console.log('dairy man');
@@ -554,6 +568,7 @@ app.get('/api/diary/animal/weights', (req, res) => {
         return;
     });
 });
+
 // 서버 실행
 app.listen(3000, () => {
     console.log('서버 시작');

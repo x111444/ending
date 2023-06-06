@@ -112,8 +112,6 @@ app.post('/api/login', (req, res) => {
         }
         else if (Array.isArray(results)) {
             // 사용자 정보가 없으면 로그인 실패 처리를 합니다.
-            console.log(id,password)
-            console.log(results)
             if (results.length === 0)
                 res.status(401).json({ success: false, message: 'Invalid username or password' });
             else {
@@ -128,10 +126,10 @@ app.post('/api/login', (req, res) => {
 //로그인 체크api
 
 app.get('/api/checkLogin', (req, res) => {
-    const { userId } = req.params;
+    const { id } = req.params;
   
     // 세션에 저장된 사용자 정보가 있는지 및 사용자 ID와 일치하는지 확인
-    if (req.session.user && req.session.user.id === userId) {
+    if (req.session.user && req.session.user.id === id) {
       res.status(200).json({ isLoggedIn: true });
     } else {
       res.status(200).json({ isLoggedIn: false });

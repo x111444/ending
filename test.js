@@ -176,14 +176,14 @@ axios.get('http://3.88.1.192:3000/api/checkLogin', {
       const data = response.data;
       if (data.isLoggedIn) {
         // 로그인 상태인 경우에 대한 처리
-        console.log(`사용자 ${userId}는 로그인 상태입니다.`);
+        console.log(`사용자는 로그인 상태입니다.`);
       } else {
         // 로그아웃 상태인 경우에 대한 처리
-        console.log(`사용자 ${userId}는 로그아웃 상태입니다.`);
+        console.log(`사용자는 로그아웃 상태입니다.`);
       }
     })
     .catch(error => {
-      console.error('로그인 상태 조회 중 에러 발생:',error.response.data);
+      console.error('로그인 상태 조회 중 에러 발생:',error);
     });
   
 

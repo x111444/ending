@@ -96,8 +96,7 @@ const upload = multer({
     fileFilter : FileFilter,
     limits: { fileSize: 10 * 1024 * 1024,files: 10,parts: 10 } // 5메가로 용량 제한
 });
-
-
+/*/
 
 //로그인 API
 app.post('/api/login', (req, res) => {

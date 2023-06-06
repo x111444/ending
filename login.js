@@ -116,8 +116,7 @@ app.post('/api/login', (req, res) => {
                 res.status(401).json({ success: false, message: 'Invalid username or password' });
             else {
                 // 로그인 성공 처리를 합니다.
-                //const user:login_state = {id:results[0] ,state:true};
-                //req.session.user = user;
+                req.session.user = { id };
                 res.json({ success: true, message: 'Login successful', user: id });
             }
         }
@@ -126,14 +125,16 @@ app.post('/api/login', (req, res) => {
 
 //로그인 체크api
 
-app.get('/api/checkLogin', (req, res) => {
-  console.log('check man');
-  if (req.session.user) {
-    res.json({ success: true, message: 'is login'});
-  } else {
-    res.status(401).json({ success: false, message: 'not login' });;
-  }
-});
+app.get('api/checkLogin/', (req, res) => {
+    const { userId } = req.params;
+  
+    // 세션에 저장된 사용자 정보가 있는지 및 사용자 ID와 일치하는지 확인
+    if (req.session.user && req.session.user.id === userId) {
+      res.status(200).json({ isLoggedIn: true });
+    } else {
+      res.status(200).json({ isLoggedIn: false });
+    }
+  });
 
 
 //회원가입 API

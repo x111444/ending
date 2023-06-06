@@ -127,7 +127,7 @@ app.post('/api/login', (req, res) => {
 
 //로그인 체크api
 
-app.get('api/checkLogin', (req, res) => {
+app.get('/api/checkLogin', (req, res) => {
     const { userId } = req.params;
   
     // 세션에 저장된 사용자 정보가 있는지 및 사용자 ID와 일치하는지 확인

@@ -157,7 +157,7 @@ app.post('/api/signup', (req, res) => {
                 const animal_list = [];
                 const post = { user_id: user_id, animals: animal_list };
                 userCollection.insertOne(post);
-                res.json({ success: true, message: 'regester successful', user: email });
+                res.json({ success: true, message: 'regester successful', user: user_id });
             }
             catch (err) {
                 console.error('MySQL 에러:', err);

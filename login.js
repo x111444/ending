@@ -112,6 +112,7 @@ app.post('/api/login', (req, res) => {
         }
         else if (Array.isArray(results)) {
             // 사용자 정보가 없으면 로그인 실패 처리를 합니다.
+            console.log(id,password)
             console.log(results)
             if (results.length === 0)
                 res.status(401).json({ success: false, message: 'Invalid username or password' });

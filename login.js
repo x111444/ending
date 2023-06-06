@@ -105,7 +105,7 @@ app.post('/api/login', (req, res) => {
     console.log('login man');
     const { id, password } = req.body;
     // MySQL 데이터베이스에서 사용자 정보를 확인합니다.
-    connection.query('SELECT * FROM users WHERE user_data = ? AND password = ?', [id, password], (error, results) => {
+    connection.query('SELECT * FROM users WHERE user_id = ? AND password = ?', [id, password], (error, results) => {
         if (error) {
             console.error('MySQL 쿼리 오류:', error);
             res.status(500).json({ success: false, message: 'Internal server error' });

@@ -7,7 +7,7 @@ const moment = require('moment');
 2.get 명령 문제 해결 필요
 */
 
-/*
+
 axios.post('http://3.88.1.192:3000/api/diary/animal', {
       id: 'user1234@naver.com',
       animal_name: 'dog',
@@ -143,7 +143,7 @@ axios.get('http://3.88.1.192:3000/api/diary/animal', {
     .catch((err) => {
       console.log(err.response.data);
     });
-*/
+
 //로그인 관련
 axios.post('http://3.88.1.192:3000/api/login', { 
       id: 'user1234@naver.com',
@@ -187,7 +187,7 @@ axios.get('http://3.88.1.192:3000/api/checkLogin', {
     });
   
 
-/*
+
 axios.get('http://3.88.1.192:3000/api/diary/animal/event', {
   params: {
     id: 'user1234@naver.com',
@@ -243,7 +243,7 @@ axios.post('http://3.88.1.192:3000/api/diary/animal/image', formData, {headers: 
   .catch((err) => {
     console.log(err.response.data);
   });
-*/
+
 
 /*
 axios.delete('http://3.88.1.192:3000/api/diary/animal', {

@@ -146,10 +146,9 @@ axios.get('http://3.88.1.192:3000/api/diary/animal', {
 */
 //로그인 관련
 axios.post('http://3.88.1.192:3000/api/login', { 
-    params: {
       id: 'user1234@naver.com',
       password: '10200411'
-     } })
+      })
     .then(response => {
       const data = response.data;
       if (data.success) {
@@ -168,7 +167,7 @@ axios.post('http://3.88.1.192:3000/api/login', {
   });
 
 
-axios.get('http://3.88.1.192:3000/isLoggedIn', {
+axios.get('http://3.88.1.192:3000/checkLogin', {
    params: {
      id: 'user1234@naver.com',
     }
@@ -184,7 +183,7 @@ axios.get('http://3.88.1.192:3000/isLoggedIn', {
       }
     })
     .catch(error => {
-      console.error('로그인 상태 조회 중 에러 발생:');
+      console.error('로그인 상태 조회 중 에러 발생:',error.response.data);
     });
   
 

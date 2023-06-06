@@ -381,7 +381,7 @@ app.get('/api/diary/animal/images', async (req, res) => {
             res.status(409).send('id not exists');
             return;
         } else {
-            const animals_images = await animalCollection.find({ user_id: id, name: animal_name }, { animal_image: 1 }).toArray();
+            const animals_images = await animalCollection.find({ user_id: id, name: animal_name }, { user_id: 1 }).toArray();
             const images = [];
             console.log(animals_images)
             for (const animal of animals_images) {

@@ -120,7 +120,7 @@ axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
 //get
 axios.get('http://3.88.1.192:3000/api/diary/animals', {
         params: {
-            id: 'user1234@naver.com'
+            username: 'user1234@naver.com'
         }
     })
     .then((rep) => {
@@ -133,7 +133,7 @@ axios.get('http://3.88.1.192:3000/api/diary/animals', {
 
 axios.get('http://3.88.1.192:3000/api/diary/animal', {
       params: {
-        id: 'user1234@naver.com',
+        username: 'user1234@naver.com',
         animal_name: 'cat'
       }
     })

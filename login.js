@@ -381,11 +381,15 @@ app.get('/api/diary/animal/images', async (req, res) => {
             res.status(409).send('id not exists');
             return;
         } else {
-            const animals_images_cursor = animalCollection.find({ user_id: id, name: animal_name }, { animal_images: 1 });
-            const animals_images = await animals_images_cursor.toArray();
+            let animal_images
+            animalCollection.find({ user_id: id, name: animal_name }, { animal_images: 1 })
+            .then((data) =>{
+                animal_images = data.toArray();
+            });
+            
             const images = [];
-            console.log(animals_images)
-            for (const animal of animals_images) {
+            console.log(animal_images)
+            for (const animal of animal_images) {
                 const data = await fs.promises.readFile(animal.animal_image);
                 images.push(data);
             }

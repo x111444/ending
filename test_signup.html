@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup</title>
+</head>
+<body>
+  <h1>Signup</h1>
+  
+  <form id="signup-form">
+    <label for="user_id">User ID:</label>
+    <input type="text" id="user_id" name="user_id" required><br>
+    
+    <label for="user_pw">Password:</label>
+    <input type="password" id="user_pw" name="user_pw" required><br>
+    
+    <label for="user_lv">User Level:</label>
+    <input type="number" id="user_lv" name="user_lv" required><br>
+    
+    <label for="user_mail">Email:</label>
+    <input type="email" id="user_mail" name="user_mail" required><br>
+    
+    <label for="user_name">Name:</label>
+    <input type="text" id="user_name" name="user_name" required><br>
+    
+    <label for="phone_number">Phone Number:</label>
+    <input type="text" id="phone_number" name="phone_number" required><br>
+    
+    <button type="submit">Signup</button>
+  </form>
+  
+  <script>
+    document.getElementById("signup-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      const user_id = document.getElementById("user_id").value;
+      const user_pw = document.getElementById("user_pw").value;
+      const user_lv = document.getElementById("user_lv").value;
+      const user_mail = document.getElementById("user_mail").value;
+      const user_name = document.getElementById("user_name").value;
+      const phone_number = document.getElementById("phone_number").value;
+      
+      const data = {
+        user_id: user_id,
+        user_pw: user_pw,
+        user_lv: user_lv,
+        user_mail: user_mail,
+        user_name: user_name,
+        phone_number: phone_number
+      };
+      
+      fetch('http://3.88.1.192:3000/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.success) {
+          alert("Signup successful");
+          // 여기에서 필요한 리다이렉션 또는 다음 동작을 수행합니다.
+        } else {
+          alert(data.message);
+          // 여기에서 실패 시 동작을 수행합니다.
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // 여기에서 에러 처리를 수행합니다.
+      });
+    });
+  </script>
+</body>
+</html>

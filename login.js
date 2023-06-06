@@ -152,7 +152,7 @@ app.post('/api/signup', (req, res) => {
             try {
                 // 새로운 사용자 추가
                 connection.query(
-                  `INSERT INTO user_data (user_id, user_pw,user_lv,user_mail,user_name,phone_number) VALUES ('${user_id}', '${user_pw}', '${user_lv}', '${user_mail}', '${user_name}', '${phone_number}')`
+                  `INSERT INTO users (user_id, user_pw,user_lv,user_mail,user_name,phone_number) VALUES ('${user_id}', '${user_pw}', '${user_lv}', '${user_mail}', '${user_name}', '${phone_number}')`
                 );
                 const animal_list = [];
                 const post = { user_id: user_id, animals: animal_list };

@@ -368,7 +368,7 @@ app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
   });
 
 // 짐승 이미지 불러오기
-app.get('/api/diary//animal/images', (req, res) => {
+app.get('/api/diary/animal/images', (req, res) => {
     console.log('try get image');
     console.log(req.query);
     const { id, animal_name} = req.query;

@@ -383,7 +383,7 @@ app.get('/api/diary/animal/images', async (req, res) => {
         } else {
             const animals_images = await animalCollection.find({ user_id: id, name: animal_name }, { animal_image: 1 }).toArray();
             const images = [];
-
+            console.log(animals_images)
             for (const animal of animals_images) {
                 const data = await fs.promises.readFile(animal.animal_image);
                 images.push(data);

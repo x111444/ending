@@ -6,7 +6,7 @@ const fs = require("fs");
 2.get 명령 문제 해결 필요
 */
 
-
+/*
 axios.post('http://3.88.1.192:3000/api/diary/animal', {
       id: 'user1234@naver.com',
       animal_name: 'dog',
@@ -170,6 +170,19 @@ axios.post('http://3.88.1.192:3000/api/diary/animal/image', formData, {headers: 
   })
   .catch((error) => {
     console.log(error.response.data);
+  });
+*/
+  axios.get('http://3.88.1.192:3000/api/diary/animal/images', {
+    params: {
+      id: 'user1234@naver.com',
+      animal_name: 'cat'
+    }
+  })
+  .then((rep) => {
+    console.log(rep.data);
+  })
+  .catch((err) => {
+    console.log(err.response.data);
   });
 
 

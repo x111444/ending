@@ -96,7 +96,7 @@ const upload = multer({
     fileFilter : FileFilter,
     limits: { fileSize: 10 * 1024 * 1024,files: 10,parts: 10 } // 5메가로 용량 제한
 });
-/*/
+
 
 //로그인 API
 app.post('/api/login', (req, res) => {
@@ -136,9 +136,9 @@ app.get('/api/checkLogin', (req, res) => {
 app.post('/api/signup', (req, res) => {
     console.log('signup man');
     console.log(req.body);
-    const { email, password } = req.body;
+    const { user_id, user_pw, user_lv, user_mail, user_name, phone_number } = req.body;
     // MySQL 데이터베이스에서 사용자 정보를 확인합니다.
-    connection.query('SELECT * FROM user_data WHERE user_id = ?', [email], (error, results) => {
+    connection.query('SELECT * FROM user_data WHERE user_id = ?', [user_id], (error, results) => {
         if (error) {
             console.error('MySQL 쿼리 오류:', error);
             res.status(500).json({ success: false, message: 'Internal server error' });
@@ -151,13 +151,11 @@ app.post('/api/signup', (req, res) => {
             // 로그인 성공 처리를 합니다.
             try {
                 // 새로운 사용자 추가
-                /*
                 connection.query(
-                  `INSERT INTO user_data (user_id, user_pw) VALUES ('${email}', '${password}')`
+                  `INSERT INTO user_data (user_id, user_pw,user_lv,user_mail,user_name,phone_number) VALUES ('${user_id}', '${user_pw}', '${user_lv}', '${user_mail}', '${user_name}', '${phone_number}')`
                 );
-                */
                 const animal_list = [];
-                const post = { user_id: email, animals: animal_list };
+                const post = { user_id: user_id, animals: animal_list };
                 userCollection.insertOne(post);
                 res.json({ success: true, message: 'regester successful', user: email });
             }

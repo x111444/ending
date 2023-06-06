@@ -368,44 +368,42 @@ app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
   });
 
 // 짐승 이미지 불러오기
-app.get('/api/diary/animal/images', (req, res) => {
+app.get('/api/diary/animal/images', async (req, res) => {
     console.log('try get image');
     console.log(req.query);
-    const { id, animal_name} = req.query;
-    console.log(id)
-    userCollection.findOne({ user_id: id })
-        .then((user_data) => {
-        if (user_data == null) {
-            console.log("no data fuck");
+    const { id, animal_name } = req.query;
+    console.log(id);
+
+    try {
+        const user_data = await userCollection.findOne({ user_id: id });
+        if (user_data === null) {
+            console.log("no data");
             res.status(409).send('id not exists');
             return;
-        }
-        else {
-            const animals_image = animalCollection.find({ user_id: id, name: animal_name  }, { animal_image: 1 });
+        } else {
+            const animals_images = await animalCollection.find({ user_id: id, name: animal_name }, { animal_image: 1 }).toArray();
             const images = [];
-            for (const path of animals_image) {
-                fs.readFile(path, (err, data) => {
-                    if (err) {
-                      console.error('Error reading image:', err);
-                    }
-                    else{
-                      // 이미지 MIME 타입 설정
-                      res.setHeader('Content-Type', 'image/jpeg');
-                      images.push(data)
-                    }
-                  });
-               
+
+            for (const animal of animals_images) {
+                const data = await fs.promises.readFile(animal.animal_image);
+                images.push(data);
             }
-            res.status(200).send(images);
+
+            // 이미지 MIME 타입 설정
+            res.setHeader('Content-Type', 'image/jpeg');
+            
+            for (const image of images) {
+                res.write(image);
+            }
+
+            res.end();
         }
-    })
-        .catch((err) => {
+    } catch (err) {
         res.status(501).send('mongo error in find id');
         console.log('mongo error in find id', err);
         return;
-    });
+    }
 });
-
 
 //짐승 삭제
 app.delete('/api/diary/animal', (req, res) => {

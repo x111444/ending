@@ -446,6 +446,7 @@ app.delete('/api/diary/animal', (req, res) => {
     
 });
 
+
 //짐승들 가져오기
 app.get('/api/diary/animals', (req, res) => {
     console.log('dairy man');
@@ -499,11 +500,26 @@ app.get('/api/diary/animal', (req, res) => {
     });
 });
 
-//짐승 이름들만 가져오기
+//짐승 이름들만 가져오기 => 유저정보 가져오기
 app.get('/api/diary/animals/name', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
     const { id } = req.query;
+    userCollection.findOne({ user_id:id})
+    .then((results) => {
+        if (results != null) {
+            res.status(200).send(results);
+        }
+        else {
+            res.status(409).send('user not exists');
+        }
+    })
+    .catch((err) => {
+        res.status(501).send('mongo error ');
+        console.log('mongo error ', err);
+        return;
+    });
+
 });
 
 //짐승들 이벤트만 가져오기

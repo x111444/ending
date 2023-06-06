@@ -175,7 +175,7 @@ axios.post('http://3.88.1.192:3000/api/diary/animal/image', formData, {headers: 
   axios.get('http://3.88.1.192:3000/api/diary/animal/images', {
     params: {
       id: 'user1234@naver.com',
-      animal_name: 'cat'
+      animal_name: 'dog'
     }
   })
   .then((rep) => {

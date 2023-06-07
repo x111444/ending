@@ -119,7 +119,7 @@ app.post('/api/login', (req, res) => {
             }
             else {
                 // 로그인 성공 처리를 합니다.
-                req.session.user = { id:username };
+                req.session.user = username;
                 res.json({ success: true, message: 'Login successful', user: username });
             }
         }
@@ -131,7 +131,7 @@ app.get('/api/checkLogin', (req, res) => {
     const { id } = req.params;
     console.log(req.session.user)
     // 세션에 저장된 사용자 정보가 있는지 및 사용자 ID와 일치하는지 확인
-    if (req.session.user && req.session.user.id === id) {
+    if (req.session.user === id) {
       res.status(200).json({ isLoggedIn: true });
     } else {
       res.status(200).json({ isLoggedIn: false });

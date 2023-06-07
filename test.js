@@ -168,25 +168,24 @@ axios.post('http://3.88.1.192:3000/api/login', {
   });
 
 
-axios.get('http://3.88.1.192:3000/api/checkLogin', {
-   params: {
-     id: 'ser1234@naver.com',
-   } 
-   })
+  axios.get('http://3.88.1.192:3000/api/checkLogin', {
+    params: {
+      id: 'user1234@naver.com',
+    }
+  })
     .then(response => {
       const data = response.data;
       if (data.isLoggedIn) {
         // 로그인 상태인 경우에 대한 처리
-        console.log(`사용자는 로그인 상태입니다.`);
+        console.log('사용자는 로그인 상태입니다.');
       } else {
         // 로그아웃 상태인 경우에 대한 처리
-        console.log(`사용자는 로그아웃 상태입니다.`);
+        console.log('사용자는 로그아웃 상태입니다.');
       }
     })
     .catch(error => {
-      console.error('로그인 상태 조회 중 에러 발생:',error);
+      console.error('로그인 상태 조회 중 에러 발생:', error);
     });
-  
 
 /*
 axios.get('http://3.88.1.192:3000/api/diary/animal/event', {

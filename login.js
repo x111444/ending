@@ -28,7 +28,7 @@ MongoClient.connect(mongo_url)
     console.log("mongo  연결");
 })
     .catch(err => console.error("mongo 실패", err));
-    
+
 //monog session db 생성및 연결
 const mongoStore = MongoStore.create({
     mongoUrl: 'mongodb://localhost/sessiondb', // MongoDB 연결 URL
@@ -140,7 +140,7 @@ app.post('/api/login', (req, res) => {
 
 //로그인 세션api
 app.get('/api/checkLogin', (req, res) => {
-    const { id } = req.params;
+    const  id  = req.id;
     console.log(req.session.user , id)
     // 세션에 저장된 사용자 정보가 있는지 및 사용자 ID와 일치하는지 확인
     if (req.session.user === id) {

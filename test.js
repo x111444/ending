@@ -145,6 +145,7 @@ axios.get('http://3.88.1.192:3000/api/diary/animal', {
     });
 */
 //로그인 관련
+
 axios.post('http://3.88.1.192:3000/api/login', { 
       username: 'user1234@naver.com',
       password: '10200411'
@@ -167,10 +168,10 @@ axios.post('http://3.88.1.192:3000/api/login', {
       // 에러 처리를 수행합니다.
   });
 
-/*
+
   axios.get('http://3.88.1.192:3000/api/checkLogin', {
     params: {
-      id: 'user1234@naver.com',
+      id: 'user1234@naver.com'
     }
   })
   .then(response => {

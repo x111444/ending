@@ -4,6 +4,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
+const MongoStore = require('connect-mongo');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
@@ -17,7 +18,6 @@ const password = 'user';
 const auth = { username: username, password: password };
 let animalCollection;
 let userCollection;
-
 //, { auth: auth }
 MongoClient.connect(mongo_url)
     .then(client => {
@@ -28,6 +28,21 @@ MongoClient.connect(mongo_url)
     console.log("mongo  연결");
 })
     .catch(err => console.error("mongo 실패", err));
+    
+//monog session db 생성및 연결
+const mongoStore = MongoStore.create({
+    mongoUrl: 'mongodb://localhost/sessiondb', // MongoDB 연결 URL
+    collectionName: 'sessions', // 세션 컬렉션 이름
+    ttl: 3600, // 세션 만료 시간 (초)
+  });
+  
+  app.use(session({
+    secret: 'mySecretKey', // 세션 암호화를 위한 시크릿 키
+    resave: false, // 세션 변경 사항이 없어도 다시 저장하지 않음
+    saveUninitialized: true, // 초기화되지 않은 세션도 저장
+    store: mongoStore, // MongoDB 세션 저장소 설정
+  }));
+
 // MySQL 연결 정보
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -46,11 +61,7 @@ app.use(cors())
 //app.use(cors(corsOptions));
 app.use(bodyParser.json({ limit: '10mb' }));
 
-app.use(session({
-    secret: 'mysecretkey',
-    resave: false,
-    saveUninitialized: true
-}));
+
 
 // MySQL 연결
 connection.connect((error) => {

@@ -104,6 +104,7 @@ const upload = multer({
 app.post('/api/login', (req, res) => {
     console.log('login man');
     const { username, password } = req.body;
+    console.log(req,body)
     // MySQL 데이터베이스에서 사용자 정보를 확인합니다.
     connection.query('SELECT * FROM users WHERE user_id = ? AND user_pw = ?', [username, password], (error, results) => {
         if (error) {
@@ -112,11 +113,13 @@ app.post('/api/login', (req, res) => {
         }
         else if (Array.isArray(results)) {
             // 사용자 정보가 없으면 로그인 실패 처리를 합니다.
-            if (results.length === 0)
+            if (results.length === 0){
+                console.log(username,password)
                 res.status(401).json({ success: false, message: 'Invalid username or password' });
+            }
             else {
                 // 로그인 성공 처리를 합니다.
-                req.session.user = { username };
+                req.session.user = { id:username };
                 res.json({ success: true, message: 'Login successful', user: username });
             }
         }

@@ -143,7 +143,8 @@ app.get('/api/checkLogin', (req, res) => {
 app.post('/api/signup', (req, res) => {
     console.log('signup man');
     console.log(req.body);
-    const { user_id, user_pw, user_lv, user_mail, user_name, phone_number } = req.body;
+    const { user_id, user_pw, user_mail, user_name, phone_number } = req.body;
+    const user_lv =1
     // MySQL 데이터베이스에서 사용자 정보를 확인합니다.
     connection.query('SELECT * FROM users WHERE user_id = ?', [user_id], (error, results) => {
         if (error) {

@@ -133,6 +133,7 @@ app.post('/api/login', (req, res) => {
                 req.session.user = username;
                 console.log(req.session.user)
                 res.json({ success: true, message: 'Login successful', user: username });
+                res.redirect('/api/checkLogin');
             }
         }
     });

@@ -172,7 +172,7 @@ axios.post('http://3.88.1.192:3000/api/login', {
   axios.get('http://3.88.1.192:3000/api/checkLogin', {
     params: {
       id: 'user1234@naver.com'
-    }
+    },
   })
   .then(response => {
     const data = response.data;

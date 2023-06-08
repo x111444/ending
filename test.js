@@ -168,7 +168,7 @@ axios.post('http://3.88.1.192:3000/api/login', {
       // 에러 처리를 수행합니다.
   });
 
-/*
+
   axios.get('http://3.88.1.192:3000/api/checkLogin', {
     params: {
       id: 'user1234@naver.com'

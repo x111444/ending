@@ -175,7 +175,8 @@ axios.post('http://3.88.1.192:3000/api/login', {
 
   axios.get('http://3.88.1.192:3000/api/checkLogin', {
     params: {
-      id: 'user1234@naver.com'
+      id: 'user1234@naver.com',
+      Cookie: Kookie
     },
     headers: {
       Cookie: Kookie//document.cookie

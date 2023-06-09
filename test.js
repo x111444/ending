@@ -1,6 +1,8 @@
 const axios = require("axios");
 const fs = require("fs");
 const moment = require('moment');
+
+axios.defaults.withCredentials = true
 /*
 확인된 문제
 1.동시에 명령 떨어질때 명령어 씹힘 현상 발생 실사용시 발생 확률 낮음
@@ -146,7 +148,7 @@ axios.get('http://3.88.1.192:3000/api/diary/animal', {
 */
 //로그인 관련
 
-let Cookie
+let Kookie
 axios.post('http://3.88.1.192:3000/api/login', { 
       username: 'user1234@naver.com',
       password: '10200411'
@@ -157,7 +159,7 @@ axios.post('http://3.88.1.192:3000/api/login', {
         // 로그인 성공
         console.log(`로그인 성공: 사용자 ${data.user}`);
         // 세션 등의 로그인 관련 처리를 진행합니다.
-        Cookie = response.headers['set-cookie']; //document.cookie
+        Kookie = response.headers['set-cookie']; //document.cookie
         console.log(response.headers['set-cookie'])
       } else {
         // 로그인 실패
@@ -176,11 +178,12 @@ axios.post('http://3.88.1.192:3000/api/login', {
       id: 'user1234@naver.com'
     },
     headers: {
-      Cookie: Cookie//document.cookie
+      Cookie: Kookie//document.cookie
     }
   })
   .then(response => {
     const data = response.data;
+    console.log(Kookie)
     if (data.isLoggedIn) {
         // 로그인 상태인 경우에 대한 처리
         console.log('사용자는 로그인 상태입니다.');

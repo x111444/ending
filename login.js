@@ -57,7 +57,9 @@ const corsOptions = {
     optionsSuccessStatus: 200 // 성공 응답 코드
 };
 
-app.use(cors())
+app.use(cors({
+    credential: 'true'
+}))
 
 //app.use(cors(corsOptions));
 app.use(bodyParser.json({ limit: '10mb' }));

@@ -134,7 +134,7 @@ app.post('/api/login', (req, res) => {
             }
             else {
                 // 로그인 성공 처리를 합니다.
-                res.cookie('username', username, { maxAge: 3600000 })
+                res.cookie('username', username)
                 res.json({ success: true, message: 'Login successful', user: username });
                 
             }

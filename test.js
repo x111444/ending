@@ -190,7 +190,7 @@ axios.post('http://3.88.1.192:3000/api/login', {
       }
     })
     .catch(error => {
-      console.error('로그인 상태 조회 중 에러 발생:', error);
+      console.error('로그인 상태 조회 중 에러 발생:', error.response);
     });
 
 /*

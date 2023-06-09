@@ -145,6 +145,7 @@ app.post('/api/login', (req, res) => {
 app.get('/api/checkLogin', (req, res) => {
     const  {id}  = req.query;
     console.log(req.query)
+    console.log(req)
     console.log(req.cookies , id)
     // 세션에 저장된 사용자 정보가 있는지 및 사용자 ID와 일치하는지 확인
     if (req.cookies.id === id) {

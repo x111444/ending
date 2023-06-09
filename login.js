@@ -156,6 +156,11 @@ app.get('/api/checkLogin', (req, res) => {
     }
   });
 
+//로그아웃
+app.post('/api/logout', (req, res) => {
+    // 세션을 파기하여 로그아웃 처리
+    res.clearCookie('username');
+  });
 
 //회원가입 API
 app.post('/api/signup', (req, res) => {

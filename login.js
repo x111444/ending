@@ -35,14 +35,15 @@ const mongoStore = MongoStore.create({
     collectionName: 'sessions', // 세션 컬렉션 이름
     ttl: 3600, // 세션 만료 시간 (초)
   });
-  
+  app.use(cookieParser());
+  /*
   app.use(session({
     secret: 'mySecretKey', // 세션 암호화를 위한 시크릿 키
     resave: false, // 세션 변경 사항이 없어도 다시 저장하지 않음
     saveUninitialized: false, // 초기화되지 않은 세션도 저장
     store: mongoStore, // MongoDB 세션 저장소 설정
-  }));
-
+  })); 
+  */
 // MySQL 연결 정보
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -130,7 +131,7 @@ app.post('/api/login', (req, res) => {
             }
             else {
                 // 로그인 성공 처리를 합니다.
-                req.session.user = username;
+                res.cookie('id', username, { maxAge: 3600000 })
                 res.json({ success: true, message: 'Login successful', user: username });
                 
             }
@@ -142,7 +143,7 @@ app.post('/api/login', (req, res) => {
 app.get('/api/checkLogin', (req, res) => {
     const  {id}  = req.query;
     console.log(req.query)
-    console.log(req.session , id)
+    console.log(req.cookie , id)
     // 세션에 저장된 사용자 정보가 있는지 및 사용자 ID와 일치하는지 확인
     if (req.session.user === id) {
       res.status(200).json({ isLoggedIn: true });

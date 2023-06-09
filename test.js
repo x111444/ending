@@ -156,7 +156,7 @@ axios.post('http://3.88.1.192:3000/api/login', {
         // 로그인 성공
         console.log(`로그인 성공: 사용자 ${data.user}`);
         // 세션 등의 로그인 관련 처리를 진행합니다.
-        
+        document.cookie = cookie;
       } else {
         // 로그인 실패
         console.log('로그인 실패:', data.message);
@@ -173,6 +173,9 @@ axios.post('http://3.88.1.192:3000/api/login', {
     params: {
       id: 'user1234@naver.com'
     },
+    headers: {
+      Cookie: document.cookie
+    }
   })
   .then(response => {
     const data = response.data;

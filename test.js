@@ -146,6 +146,7 @@ axios.get('http://3.88.1.192:3000/api/diary/animal', {
 */
 //로그인 관련
 
+let Cookie
 axios.post('http://3.88.1.192:3000/api/login', { 
       username: 'user1234@naver.com',
       password: '10200411'
@@ -156,7 +157,8 @@ axios.post('http://3.88.1.192:3000/api/login', {
         // 로그인 성공
         console.log(`로그인 성공: 사용자 ${data.user}`);
         // 세션 등의 로그인 관련 처리를 진행합니다.
-        document.cookie = cookie;
+        Cookie = cookie; //document.cookie
+        console.log(cookie)
       } else {
         // 로그인 실패
         console.log('로그인 실패:', data.message);
@@ -164,7 +166,7 @@ axios.post('http://3.88.1.192:3000/api/login', {
       }
     })
     .catch(error => {
-      console.error('로그인 요청 에러: ',error);
+      console.error('로그인 요청 에러: ',error.response);
       // 에러 처리를 수행합니다.
   });
 
@@ -174,7 +176,7 @@ axios.post('http://3.88.1.192:3000/api/login', {
       id: 'user1234@naver.com'
     },
     headers: {
-      Cookie: document.cookie
+      Cookie: Cookie//document.cookie
     }
   })
   .then(response => {

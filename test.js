@@ -178,9 +178,11 @@ axios.post('http://3.88.1.192:3000/api/login', {
       id: 'user1234@naver.com',
       Cookie: Kookie
     },
+    /*
     headers: {
       Cookie: Kookie//document.cookie
     }
+    */
   })
   .then(response => {
     const data = response.data;

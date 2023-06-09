@@ -8,7 +8,8 @@ const MongoStore = require('connect-mongo');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
+const { emitWarning } = require('process');
 const app = express();
 //mongodb 연결정보1
 const mongo_url = "mongodb://127.0.0.1:27017/animal";
@@ -145,6 +146,7 @@ app.post('/api/login', (req, res) => {
 //로그인 세션api
 app.get('/api/checkLogin', (req, res) => {
     const  {id,Cookie}  = req.query;
+    console(req.query)
     console.log(Cookie , id)
     // 세션에 저장된 사용자 정보가 있는지 및 사용자 ID와 일치하는지 확인
     if (req.cookies.id === id) {

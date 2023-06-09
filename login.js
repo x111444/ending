@@ -8,7 +8,7 @@ const MongoStore = require('connect-mongo');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-
+const cookieParser = require('cookie-parser')
 const app = express();
 //mongodb 연결정보1
 const mongo_url = "mongodb://127.0.0.1:27017/animal";

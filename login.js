@@ -69,12 +69,7 @@ app.use(bodyParser.json({ limit: '10mb' }));
 
 // MySQL 연결
 connection.connect((error) => {
-    if (error) {
-        console.error('MySQL 연결 오류:', error);
-    }
-    else {
-        console.log('MySQL 연결 성공');
-    }
+   
 });
 
 //사진업로드용 

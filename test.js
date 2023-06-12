@@ -77,8 +77,8 @@ axios.put('http://3.88.1.192:3000/api/diary/animal/event', {
   id: 'user1234@naver.com',
   animal_name: 'cat',
   events: [
-    { date: moment('2023-06-01').format('YYYY-MM-DD'), value: 'vaccination' },
-    { date: moment('2023-06-02').format('YYYY-MM-DD'), value: 'grooming' }
+    { date: moment('2023-06-01').format('YYYY-MM-DD'), value: 'vaccination', content:"오늘 뭐 했대" },
+    { date: moment('2023-06-02').format('YYYY-MM-DD'), value: 'grooming' , content:"오늘 뭐 했대" }
   ]
 }).then((rep) => {
   console.log("add animal event is clear ")
@@ -145,9 +145,10 @@ axios.get('http://3.88.1.192:3000/api/diary/animal', {
     .catch((err) => {
       console.log(err.response.data);
     });
-*/
-//로그인 관련
 
+//로그인 관련
+*/
+/*
 let Kookie
 axios.post('http://3.88.1.192:3000/api/login', { 
       username: 'user1234@naver.com',
@@ -171,6 +172,29 @@ axios.post('http://3.88.1.192:3000/api/login', {
       console.error('로그인 요청 에러: ',error.response);
       // 에러 처리를 수행합니다.
   });
+  */
+
+  const data = {
+    username: 'user1234@naver.com',
+    password: '10200411'
+  };
+
+  axios
+  .post('http://3.88.1.192:3000/api/login', data)
+  .then((response) => {
+    // Handle successful login
+    const authToken = response.data.authToken;
+    const username = response.headers['set-cookie']; // Get the username from the response data
+    console.log('username:', username);
+    // Call onLoginSuccess function with username parameter
+    
+    console.log('username:', username);
+    // Set the authentication token and username in cookies
+    //Cookies.set('username', username, { expires: 7 }); // Expires in 7 days
+
+    // Redirect to home page
+    console.log('username:', username);
+  })
 
 /*
   axios.get('http://3.88.1.192:3000/api/checkLogin', {
@@ -198,7 +222,7 @@ axios.post('http://3.88.1.192:3000/api/login', {
       console.error('로그인 상태 조회 중 에러 발생:', error.response);
     });
 
-/*
+
 axios.get('http://3.88.1.192:3000/api/diary/animal/event', {
   params: {
     id: 'user1234@naver.com',
@@ -242,6 +266,7 @@ axios.post('http://3.88.1.192:3000/api/diary/animal/image', formData, {headers: 
     console.log(error.response.data);
   });
 
+  //짐승 이미지 가져오기
   axios.get('http://3.88.1.192:3000/api/diary/animal/images', {
     params: {
       id: 'user1234@naver.com',
@@ -256,11 +281,12 @@ axios.post('http://3.88.1.192:3000/api/diary/animal/image', formData, {headers: 
   });
 
 
-/*
+//짐승삭제
 axios.delete('http://3.88.1.192:3000/api/diary/animal', {
     data: {
       id: 'user1234@naver.com',
       animal_name: 'dog'
     }
   });
+
 */

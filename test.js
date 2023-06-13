@@ -175,8 +175,8 @@ axios.post('http://3.88.1.192:3000/api/login', {
   */
 
   const data = {
-    username: 'user1234@naver.com',
-    password: '10200411'
+    username: '111',
+    password: '111'
   };
 
   axios

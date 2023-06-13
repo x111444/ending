@@ -116,7 +116,7 @@ app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
     console.log(req.body)
     // MySQL 데이터베이스에서 사용자 정보를 확인합니다.
-    connection.query('SELECT * FROM users WHERE user_id = ? AND user_pw = ?', [username, password], (error, results) => {
+    connection.query('SELECT * FROM user WHERE userName = ? AND userPassword = ?', [username, password], (error, results) => {
         if (error) {
             console.error('MySQL 쿼리 오류:', error);
             res.status(500).json({ success: false, message: 'Internal server error' });
@@ -164,7 +164,7 @@ app.post('/api/signup', (req, res) => {
     const { user_id, user_pw, user_mail, user_name, phone_number } = req.body;
     const user_lv =1
     // MySQL 데이터베이스에서 사용자 정보를 확인합니다.
-    connection.query('SELECT * FROM users WHERE user_id = ?', [user_id], (error, results) => {
+    connection.query('SELECT * FROM user WHERE userName = ?', [user_id], (error, results) => {
         if (error) {
             console.error('MySQL 쿼리 오류:', error);
             res.status(500).json({ success: false, message: 'Internal server error' });
@@ -178,7 +178,7 @@ app.post('/api/signup', (req, res) => {
             try {
                 // 새로운 사용자 추가
                 connection.query(
-                  `INSERT INTO users (user_id, user_pw,user_lv,user_mail,user_name,phone_number) VALUES ('${user_id}', '${user_pw}', '${user_lv}', '${user_mail}', '${user_name}', '${phone_number}')`
+                  `INSERT INTO user (userName, userPassword,user_level,user_email,uname,phone_num) VALUES ('${user_id}', '${user_pw}', '${user_lv}', '${user_mail}', '${user_name}', '${phone_number}')`
                 );
                 const animal_list = [];
                 const post = { user_id: user_id, animals: animal_list };

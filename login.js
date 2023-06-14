@@ -515,7 +515,7 @@ app.get('/api/diary/animal', (req, res) => {
          console.log('mongo error in find id', err);
          return;
      }).then((result)=>{user_data = result})
-    if(animal_name === null)
+    if(animal_name === undefined)
     {
       console.log(user_data)
     }

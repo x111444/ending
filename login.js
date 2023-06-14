@@ -508,26 +508,34 @@ app.get('/api/diary/animal', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
     const { id, animal_name } = req.query;
-    userCollection.findOne({ user_id: id, animals: animal_name })
-        .catch((err) => {
-        res.status(501).send('mongo error in find id');
-        console.log('mongo error in find id', err);
-        return;
-    });
-    animalCollection.findOne({ user_id: id, name: animal_name })
-        .then((results) => {
-        if (results != null) {
-            res.status(200).send(results);
-        }
-        else {
-            res.status(409).send('animal not exists');
-        }
-    })
-        .catch((err) => {
-        res.status(501).send('mongo error in find animal_name');
-        console.log('mongo error in find animal_name', err);
-        return;
-    });
+    let user_data
+    userCollection.findOne({ user_id: id, })
+         .catch((err) => {
+         res.status(501).send('mongo error in find id');
+         console.log('mongo error in find id', err);
+         return;
+     }).then((result)=>{user_data = result})
+    if(animal_name === null)
+    {
+      console.log(user_data)
+    }
+    else
+    {
+     animalCollection.findOne({ user_id: id, name: animal_name })
+         .then((results) => {
+         if (results != null) {
+             res.status(200).send(results);
+         }
+         else {
+             res.status(409).send('animal not exists');
+         }
+     })
+         .catch((err) => {
+         res.status(501).send('mongo error in find animal_name');
+         console.log('mongo error in find animal_name', err);
+         return;
+     });
+   }
 });
 
 //짐승 이름들만 가져오기 => 유저정보 가져오기

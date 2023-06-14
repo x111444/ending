@@ -521,6 +521,8 @@ app.get('/api/diary/animal', (req, res) => {
     if(animal_name === undefined)
     {
       console.log(user_data)
+      res.status(200).send(user_data)
+      return
     }
     else
     {

@@ -208,7 +208,6 @@ app.post('/api/signup', (req, res) => {
 //짐승추가
 app.post('/api/diary/animal', (req, res) => {
     console.log('add animal');
-    console.log(req.body);
     const { id, animal_name, birth,sex, data,images } = req.body;
     userCollection.findOne({ user_id: id, animals: animal_name })
     .then((check)=>{

@@ -170,7 +170,7 @@ app.post('/api/logout', (req, res) => {
 app.post('/api/signup', (req, res) => {
     console.log('signup man');
     console.log(req.body);
-    const { user_id, user_pw, user_mail, user_name, phone_number } = req.body;
+    const { user_id, user_pw, user_email, user_name, phone_number } = req.body;
     const user_lv =1
     // MySQL 데이터베이스에서 사용자 정보를 확인합니다.
     connection.query('SELECT * FROM user WHERE userName = ?', [user_id], (error, results) => {
@@ -187,7 +187,7 @@ app.post('/api/signup', (req, res) => {
             try {
                 // 새로운 사용자 추가
                 connection.query(
-                  `INSERT INTO user (userName, userPassword,user_level,user_email,name,phone_num) VALUES ('${user_id}', '${user_pw}', '${user_lv}', '${user_mail}', '${user_name}', '${phone_number}')`
+                  `INSERT INTO user (userName, userPassword,user_level,user_email,name,phone_num) VALUES ('${user_id}', '${user_pw}', '${user_lv}', '${user_email}', '${user_name}', '${phone_number}')`
                 );
                 const animal_list = [];
                 const post = { user_id: user_id, animals: animal_list };
@@ -209,7 +209,7 @@ app.post('/api/signup', (req, res) => {
 app.post('/api/diary/animal', (req, res) => {
     console.log('add animal');
     console.log(req.body);
-    const { id, animal_name, birth, data,images } = req.body;
+    const { id, animal_name, birth,sex, data,images } = req.body;
     userCollection.findOne({ user_id: id, animals: animal_name })
     .then((check)=>{
         if (check != null) {
@@ -223,7 +223,7 @@ app.post('/api/diary/animal', (req, res) => {
                 console.log('mongo error in update', err);
                 return;
             });
-            const new_animal = { user_id: id, name: animal_name, birth: birth, data: data ,images:images };
+            const new_animal = { user_id: id, name: animal_name, birth: birth,sex: sex, data: data ,images:images };
             animalCollection.insertOne(new_animal)
                 .then(() => {
                 res.status(201).send('animal add');

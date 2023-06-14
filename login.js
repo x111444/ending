@@ -46,11 +46,20 @@ const mongoStore = MongoStore.create({
   })); 
   */
 // MySQL 연결 정보
+/*
 const connection = mysql.createConnection({
     host     : 'db-test.coshf621ahrh.ap-northeast-2.rds.amazonaws.com',
     user     : 'admin',
     password : 'leek1004',
     database : 'mydb6'
+});
+*/
+
+const connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : '',
+    database : 'user'
 });
 
 const corsOptions = {

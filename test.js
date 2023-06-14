@@ -172,7 +172,7 @@ axios.post('http://3.88.1.192:3000/api/login', {
       console.error('로그인 요청 에러: ',error.response);
       // 에러 처리를 수행합니다.
   });
-  */
+  
 
   const data = {
     username: '111',
@@ -196,7 +196,7 @@ axios.post('http://3.88.1.192:3000/api/login', {
     console.log('username:', username);
   })
 
-/*
+
   axios.get('http://3.88.1.192:3000/api/checkLogin', {
     params: {
       id: 'user1234@naver.com',
@@ -246,7 +246,7 @@ axios.get('http://3.88.1.192:3000/api/diary/animal/weights', {
 });
 
 
-
+*/
 //img
 const imagePath1 = "test/test1.PNG";
 const imagePath2 = "test/test2.PNG";
@@ -280,7 +280,7 @@ axios.post('http://3.88.1.192:3000/api/diary/animal/image', formData, {headers: 
     console.log(err.response.data);
   });
 
-
+/*
 //짐승삭제
 axios.delete('http://3.88.1.192:3000/api/diary/animal', {
     data: {
@@ -288,5 +288,4 @@ axios.delete('http://3.88.1.192:3000/api/diary/animal', {
       animal_name: 'dog'
     }
   });
-
 */

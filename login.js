@@ -514,7 +514,14 @@ app.get('/api/diary/animal', (req, res) => {
          res.status(501).send('mongo error in find id');
          console.log('mongo error in find id', err);
          return;
-     }).then((result)=>{user_data = result})
+     })
+     .then((result)=>{user_data = result})
+     .catch((err) => {
+        res.status(501).send('mongo error ');
+        console.log('mongo error ', err);
+        return;
+    })
+
     if(animal_name === undefined)
     {
       console.log(user_data)

@@ -13,15 +13,14 @@ axios.defaults.withCredentials = true
 
 const imagePath1 = "test/test1.PNG";
 img =fs.createReadStream(imagePath1)
-
-axios.post('http://3.88.1.192:3000/api/diary/animal', {
-      user_id: '111',
-      animal_name: 'sad',
-      sex: '남',
-      birth: '2020-01-01',
-      data: {},
-      imgCrop: img
-}).then((rep)=>{
+const formData = new FormData();
+formData.append('imgCrop', img);
+formData.append('user_id', '111')
+formData.append('animal_name', 'dad1')
+formData.append('sex', '남')
+formData.append('birth', '2020-01-01')
+formData.append('data', {})
+axios.post('http://3.88.1.192:3000/api/diary/animal',formData).then((rep)=>{
   console.log("add animal is clear ")
 }).catch((err) => {
   console.log(err.response.data)

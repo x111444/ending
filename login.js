@@ -492,6 +492,8 @@ app.get('/api/diary/animals', (req, res) => {
         }
         else {
             const animals = animalCollection.find({ user_id:  user_id });
+            img = fs.readFileSync(animals.imgCrop[0]);
+            animals.imgCrop = img
             res.status(200).send(animals);
         }
     })

@@ -516,9 +516,21 @@ app.get('/api/diary/animal', (req, res) => {
           if(animal_name === undefined)
           {
            console.log(result)
-           console.log("111")
-           res.status(200).send(result)
-           return
+           const  fval = result.animals[0]
+           animalCollection.findOne({ user_id: id, name: fval })
+           .then((results) => {
+           if (results != null) {
+               res.status(200).send(results);
+           }
+           else {
+               res.status(409).send('animal not exists');
+           }
+           })
+           .catch((err) => {
+           res.status(501).send('mongo error in find animal_name');
+           console.log('mongo error in find animal_name', err);
+           return;
+           })
           }
           else
           {

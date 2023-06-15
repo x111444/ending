@@ -10,17 +10,24 @@ axios.defaults.withCredentials = true
 */
 
 
+
+const imagePath1 = "test/test1.PNG";
+createReadStream(imagePath1)
+.then((img) =>{
+
 axios.post('http://3.88.1.192:3000/api/diary/animal', {
       user_id: '111',
       animal_name: 'dog',
       sex: '남',
       birth: '2020-01-01',
-      data: {}
+      data: {},
+      imgCrop: img
 }).then((rep)=>{
   console.log("add animal is clear ")
 }).catch((err) => {
   console.log(err.response.data)
 });
+})
 /*
  axios.post('http://3.88.1.192:3000/api/diary/animal', {
     id: 'user1234@naver.com',

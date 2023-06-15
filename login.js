@@ -509,11 +509,36 @@ app.get('/api/diary/animal', (req, res) => {
     .then((documents) => {
     console.log('모든 문서:', documents);
     })
+
     userCollection.findOne({ user_id: id }, (err, result) => {
-        if(result)
+        if(result != undefined)
         {
-         console.log(result)
-         user_data = result
+
+            
+          if(animal_name === undefined)
+          {
+           console.log(user_data)
+           console.log("111")
+           res.status(200).send(user_data)
+           return
+          }
+          else
+          {
+            animalCollection.findOne({ user_id: id, name: animal_name })
+             .then((results) => {
+             if (results != null) {
+                 res.status(200).send(results);
+             }
+             else {
+                 res.status(409).send('animal not exists');
+             }
+             })
+             .catch((err) => {
+             res.status(501).send('mongo error in find animal_name');
+             console.log('mongo error in find animal_name', err);
+             return;
+             })
+            }
         }
         if(err)
         {
@@ -525,30 +550,6 @@ app.get('/api/diary/animal', (req, res) => {
     
     
 
-    if(animal_name === undefined)
-    {
-      console.log(user_data)
-      console.log("111")
-      res.status(200).send(user_data)
-      return
-    }
-    else
-    {
-     animalCollection.findOne({ user_id: id, name: animal_name })
-         .then((results) => {
-         if (results != null) {
-             res.status(200).send(results);
-         }
-         else {
-             res.status(409).send('animal not exists');
-         }
-     })
-         .catch((err) => {
-         res.status(501).send('mongo error in find animal_name');
-         console.log('mongo error in find animal_name', err);
-         return;
-     });
-   }
 });
 
 //짐승 이름들만 가져오기 => 유저정보 가져오기

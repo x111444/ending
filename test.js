@@ -14,7 +14,7 @@ axios.defaults.withCredentials = true
 const imagePath1 = "test/test1.PNG";
 img =fs.createReadStream(imagePath1)
 const formData = new FormData();
-formData.append('file', img);
+formData.append('imgCrop', img);
 formData.append('user_id', '111')
 formData.append('animal_name', 'dad1')
 formData.append('sex', '남')

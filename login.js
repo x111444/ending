@@ -199,10 +199,11 @@ app.post('/api/signup', (req, res) => {
 
 //다이어리 수정
 //짐승추가
-app.post('/api/diary/animal', upload.single('file'), (req, res) => {
+app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     console.log('add animal');
-    const {  user_id, animal_name, birth,sex, data} = req.body;
+    const { user_id, animal_name, birth,sex, data} = req.body;
     console.log(req.body)
+    console.log(req.body.imgCrop)
     console.log(req.file)
     let img_list =[] 
     if (req.file != undefined){

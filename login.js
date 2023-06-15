@@ -509,18 +509,23 @@ app.get('/api/diary/animal', (req, res) => {
     console.log(req.query);
     const { id, animal_name } = req.query;
     let user_data
-    userCollection.findOne({ user_id: id })
-    .then((result) =>{user_data = result})
-    .catch((err) => {
-      res.status(501).send('mongo error in find id');
-      console.log('mongo error in find id', err);
-      return;
-     })
+    userCollection.findOne({ user_id: id }, (err, result) => {
+        if(result)
+         user_data = result
+        if(err)
+        {
+            res.status(501).send('mongo error in find id');
+            console.log('mongo error in find id', err);
+            return;
+        }
+    })
+    
     
 
     if(animal_name === undefined)
     {
       console.log(user_data)
+      console.log("111")
       res.status(200).send(user_data)
       return
     }

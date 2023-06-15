@@ -135,7 +135,7 @@ axios.get('http://3.88.1.192:3000/api/diary/animals', {
 */
 axios.get('http://3.88.1.192:3000/api/diary/animal', {
       params: {
-        id: '111',
+        id: 'aaa',
         //animal_name: 'cat'
       }
     })

@@ -9,10 +9,11 @@ axios.defaults.withCredentials = true
 2.get 명령 문제 해결 필요
 */
 
-/*
+
 axios.post('http://3.88.1.192:3000/api/diary/animal', {
-      id: 'user1234@naver.com',
+      user_id: '111',
       animal_name: 'dog',
+      sex: '남',
       birth: '2020-01-01',
       data: {}
 }).then((rep)=>{
@@ -20,7 +21,7 @@ axios.post('http://3.88.1.192:3000/api/diary/animal', {
 }).catch((err) => {
   console.log(err.response.data)
 });
-
+/*
  axios.post('http://3.88.1.192:3000/api/diary/animal', {
     id: 'user1234@naver.com',
     animal_name: 'cat',
@@ -132,7 +133,7 @@ axios.get('http://3.88.1.192:3000/api/diary/animals', {
         console.log(err.response.data);
     });
 
-*/
+
 axios.get('http://3.88.1.192:3000/api/diary/animal', {
       params: {
         id: 'aaa',

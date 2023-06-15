@@ -202,6 +202,7 @@ app.post('/api/signup', (req, res) => {
 app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     console.log('add animal');
     const {  user_id, animal_name, birth,sex, data} = req.body;
+    console.log(req)
     let img_list =[] 
     if (req.imgCrop != undefined){
       img_list.append(req.imgCrop.path)

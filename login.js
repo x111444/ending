@@ -511,7 +511,10 @@ app.get('/api/diary/animal', (req, res) => {
     })
     userCollection.findOne({ user_id: id }, (err, result) => {
         if(result)
+        {
+         console.log(result)
          user_data = result
+        }
         if(err)
         {
             res.status(501).send('mongo error in find id');

@@ -201,21 +201,21 @@ app.post('/api/signup', (req, res) => {
 //짐승추가
 app.post('/api/diary/animal', (req, res) => {
     console.log('add animal');
-    const { id, animal_name, birth,sex, data,images } = req.body;
-    userCollection.findOne({ user_id: id, animals: animal_name })
+    const {  user_id, animal_name, birth,sex, data,images } = req.body;
+    userCollection.findOne({ user_id:  user_id, animals: animal_name })
     .then((check)=>{
         if (check != null) {
             res.status(409).send('animal already exists');
             return;
         }
         else {
-            userCollection.updateOne({ user_id: id }, { $push: { animals: animal_name } })
+            userCollection.updateOne({ user_id:  user_id }, { $push: { animals: animal_name } })
                 .catch((err) => {
                 res.status(501).send('mongo error in update');
                 console.log('mongo error in update', err);
                 return;
             });
-            const new_animal = { user_id: id, name: animal_name, birth: birth,sex: sex, data: data ,imgCrop:images };
+            const new_animal = { user_id:  user_id, name: animal_name, birth: birth,sex: sex, data: data ,imgCrop:images };
             animalCollection.insertOne(new_animal)
                 .then(() => {
                 res.status(201).send('animal add');
@@ -238,15 +238,15 @@ app.post('/api/diary/animal', (req, res) => {
 app.put('/api/diary/animal/weight', (req, res) => {
     console.log('animal weight');
     console.log(req.body);
-    const { id, animal_name, weights } = req.body;
-    userCollection.findOne({ user_id: id, animals: animal_name  })
+    const {  user_id, animal_name, weights } = req.body;
+    userCollection.findOne({ user_id:  user_id, animals: animal_name  })
     .then((check)=>{
         if (check == null) {
             res.status(409).send('animal no exists');
             return;
         }
         else {
-            animalCollection.updateOne({ user_id: id, name: animal_name }, { $set: { "data.weights": weights } })
+            animalCollection.updateOne({ user_id:  user_id, name: animal_name }, { $set: { "data.weights": weights } })
                 .then(() => {
                 res.status(200).send('animal weights update');
             }).catch((err) => {
@@ -268,15 +268,15 @@ app.put('/api/diary/animal/weight', (req, res) => {
 app.put('/api/diary/animal/event', (req, res) => {
     console.log('animal event');
     console.log(req.body);
-    const { id, animal_name, events } = req.body;
-    userCollection.findOne({ user_id: id, animals: animal_name  })
+    const {  user_id, animal_name, events } = req.body;
+    userCollection.findOne({ user_id:  user_id, animals: animal_name  })
     .then((check)=>{
         if (check == null) {
             res.status(409).send('animal no exists');
             return;
         }
         else {
-            animalCollection.updateOne({ user_id: id, name: animal_name }, { $set: { "data.events": events } })
+            animalCollection.updateOne({ user_id:  user_id, name: animal_name }, { $set: { "data.events": events } })
                 .then(() => {
                 res.status(200).send('animal events update');
             }).catch((err) => {
@@ -297,15 +297,15 @@ app.put('/api/diary/animal/event', (req, res) => {
 app.put('/api/diary/animal/birth', (req, res) => {
     console.log('animal adjust birth');
     console.log(req.body);
-    const { id, animal_name, birth } = req.body;
-    userCollection.findOne({ user_id: id, animals: animal_name  })
+    const {  user_id, animal_name, birth } = req.body;
+    userCollection.findOne({ user_id:  user_id, animals: animal_name  })
     .then((check)=>{
         if (check == null) {
             res.status(409).send('animal no exists');
             return;
         }
         else {
-            animalCollection.updateOne({ user_id: id, name: animal_name }, { $set: { birth: birth } })
+            animalCollection.updateOne({ user_id:  user_id, name: animal_name }, { $set: { birth: birth } })
                 .then(() => {
                 res.status(200).send('animal birth update');
             }).catch((err) => {
@@ -327,12 +327,12 @@ app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => 
     console.log('animal adjust image');
     console.log(req.body);
     const files = req.files
-    const { id, animal_name } = req.body;
+    const {  user_id, animal_name } = req.body;
     
-    console.log(id, animal_name, files)
+    console.log( user_id, animal_name, files)
     // 업로드된 이미지 파일들
     try {
-      const user = await userCollection.findOne({ user_id: id });
+      const user = await userCollection.findOne({ user_id:  user_id });
       if (!user) {
         res.status(409).send('User does not exist');
         return;
@@ -346,7 +346,7 @@ app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => 
       console.log(file.path)
       // 이미지 정보를 데이터베이스에 저장
       const animal = await animalCollection.updateOne(
-        { user_id: id, name: animal_name },
+        { user_id:  user_id, name: animal_name },
         { $push: { imgCrop: imagePath } }
       );
     }
@@ -364,12 +364,12 @@ app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
     console.log(req.body);
     console.log(req.file)
     const file = req.file
-    const { id, animal_name } = req.body;
+    const {  user_id, animal_name } = req.body;
     
-    console.log(id, animal_name, file)
+    console.log( user_id, animal_name, file)
     // 업로드된 이미지 파일들
     try {
-      const user = await userCollection.findOne({ user_id: id });
+      const user = await userCollection.findOne({ user_id:  user_id });
       if (!user) {
         res.status(409).send('User does not exist');
         return;
@@ -383,8 +383,8 @@ app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
     console.log(file.path)
     // 이미지 정보를 데이터베이스에 저장
     const animal = await animalCollection.updateOne(
-        { user_id: id, name: animal_name },
-        { $push: { animal_images: imagePath } }
+        { user_id:  user_id, name: animal_name },
+        { $push: { imagCrop: imagePath } }
     );
     
   
@@ -399,17 +399,17 @@ app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
 app.get('/api/diary/animal/images', async (req, res) => {
     console.log('try get image');
     console.log(req.query);
-    const { id, animal_name } = req.query;
-    console.log(id);
+    const {  user_id, animal_name } = req.query;
+    console.log( user_id);
 
     try {
-        const user_data = await userCollection.findOne({ user_id: id });
+        const user_data = await userCollection.findOne({ user_id:  user_id });
         if (user_data === null) {
             console.log("no data");
             res.status(409).send('id not exists');
             return;
         } else {
-            const animal_images= await animalCollection.findOne({ user_id: id, name: animal_name });
+            const animal_images= await animalCollection.findOne({ user_id:  user_id, name: animal_name });
             const images = [];
             for (const animal of animal_images.imgCrop) {
                 console.log(animal)
@@ -437,21 +437,21 @@ app.get('/api/diary/animal/images', async (req, res) => {
 app.delete('/api/diary/animal', (req, res) => {
     console.log('animal delete');
     console.log(req.body);
-    const { id, animal_name } = req.body;
-    userCollection.findOne({ user_id: id, animals: animal_name  })
+    const {  user_id, animal_name } = req.body;
+    userCollection.findOne({ user_id:  user_id, animals: animal_name  })
     .then((check)=>{
         if (check == null) {
             res.status(409).send('animal no exists');
             return;
         }
         else {
-            userCollection.updateOne({ user_id: id }, { $pull: { animals: animal_name } })
+            userCollection.updateOne({ user_id:  user_id }, { $pull: { animals: animal_name } })
                 .catch((err) => {
                 res.status(501).send('mongo error in update');
                 console.log('mongo error in update', err);
                 return;
             });
-            animalCollection.deleteOne({ user_id: id, name: animal_name })
+            animalCollection.deleteOne({ user_id:  user_id, name: animal_name })
                 .then(() => {
                 res.status(201).send('animal add');
             }).catch((err) => {
@@ -473,9 +473,9 @@ app.delete('/api/diary/animal', (req, res) => {
 app.get('/api/diary/animals', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
-    const { id } = req.query;
-    console.log(id)
-    userCollection.findOne({ user_id: id })
+    const {  user_id } = req.query;
+    console.log( user_id)
+    userCollection.findOne({ user_id:  user_id })
         .then((user_data) => {
         if (user_data == null) {
             console.log("no data fuck");
@@ -483,7 +483,7 @@ app.get('/api/diary/animals', (req, res) => {
             return;
         }
         else {
-            const animals = animalCollection.find({ user_id: id });
+            const animals = animalCollection.find({ user_id:  user_id });
             res.status(200).send(animals);
         }
     })
@@ -499,11 +499,11 @@ app.get('/api/diary/animals', (req, res) => {
 app.get('/api/diary/animal', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
-    const { id, animal_name } = req.query;
+    const { user_id, animal_name } = req.query;
 
 
 
-    userCollection.findOne({ user_id: id })
+    userCollection.findOne({ user_id:  user_id })
     .then((result) => {
         if(result != undefined)
         {  
@@ -511,7 +511,7 @@ app.get('/api/diary/animal', (req, res) => {
           {
            console.log(result)
            const  fval = result.animals[0]
-           animalCollection.findOne({ user_id: id, name: fval })
+           animalCollection.findOne({ user_id:  user_id, name: fval })
            .then((results) => {
            if (results != null) {
                res.status(200).send(results);
@@ -530,7 +530,7 @@ app.get('/api/diary/animal', (req, res) => {
           }
           else
           {
-            animalCollection.findOne({ user_id: id, name: animal_name })
+            animalCollection.findOne({ user_id:  user_id, name: animal_name })
              .then((results) => {
              if (results != null) {
                  res.status(200).send(results);
@@ -571,8 +571,8 @@ app.get('/api/diary/animal', (req, res) => {
 app.get('/api/diary/animals/name', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
-    const { id } = req.query;
-    userCollection.findOne({ user_id:id})
+    const { user_id } = req.query;
+    userCollection.findOne({ user_id:user_id})
     .then((results) => {
         if (results != null) {
             res.status(200).send(results);
@@ -594,14 +594,14 @@ app.get('/api/diary/animals/name', (req, res) => {
 app.get('/api/diary/animal/event', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
-    const { id, animal_name } = req.query;
-    userCollection.findOne({ user_id: id, animals: animal_name })
+    const { user_id, animal_name } = req.query;
+    userCollection.findOne({ user_id: user_id, animals: animal_name })
         .catch((err) => {
         res.status(501).send('mongo error in find id');
         console.log('mongo error in find id', err);
         return;
     });
-    animalCollection.findOne({ user_id: id, name: animal_name })
+    animalCollection.findOne({ user_id: user_id, name: animal_name })
         .then((results) => {
         var _a;
         if (results != null) {
@@ -622,14 +622,14 @@ app.get('/api/diary/animal/event', (req, res) => {
 app.get('/api/diary/animal/weights', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
-    const { id, animal_name } = req.query;
-    userCollection.findOne({ user_id: id, animals: animal_name })
+    const { user_id, animal_name } = req.query;
+    userCollection.findOne({ user_id: user_id, animals: animal_name })
         .catch((err) => {
         res.status(501).send('mongo error in find id');
         console.log('mongo error in find id', err);
         return;
     });
-    animalCollection.findOne({ user_id: id, name: animal_name })
+    animalCollection.findOne({ user_id: user_id, name: animal_name })
         .then((results) => {
         var _a;
         if (results != null) {

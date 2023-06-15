@@ -199,12 +199,16 @@ app.post('/api/signup', (req, res) => {
 
 //다이어리 수정
 //짐승추가
-app.post('/api/diary/animal', (req, res) => {
+app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     console.log('add animal');
-    const {  user_id, animal_name, birth,sex, data,images } = req.body;
+    const {  user_id, animal_name, birth,sex, data} = req.body;
+    let img_list =[] 
+    if (req.imgCrop != undefined){
+      img_list.append(req.imgCrop.path)
+    }
     userCollection.findOne({ user_id:  user_id, animals: animal_name })
     .then((check)=>{
-        if (check != null) {
+        if (check != undefined ) {
             res.status(409).send('animal already exists');
             return;
         }
@@ -215,7 +219,8 @@ app.post('/api/diary/animal', (req, res) => {
                 console.log('mongo error in update', err);
                 return;
             });
-            const new_animal = { user_id:  user_id, name: animal_name, birth: birth,sex: sex, data: data ,imgCrop:images };
+            
+            const new_animal = { user_id:  user_id, name: animal_name, birth: birth,sex: sex, data: data ,imgCrop:img_list };
             animalCollection.insertOne(new_animal)
                 .then(() => {
                 res.status(201).send('animal add');
@@ -384,7 +389,7 @@ app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
     // 이미지 정보를 데이터베이스에 저장
     const animal = await animalCollection.updateOne(
         { user_id:  user_id, name: animal_name },
-        { $push: { imagCrop: imagePath } }
+        { $push: { imgCrop: imagePath } }
     );
     
   

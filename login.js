@@ -206,7 +206,7 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     console.log(req.file)
     let img_list =[] 
     if (req.file != undefined){
-      img_list.append(req.file.path)
+      img_list.push(req.file.path)
     }
     userCollection.findOne({ user_id:  user_id, animals: animal_name })
     .then((check)=>{
@@ -524,6 +524,8 @@ app.get('/api/diary/animal', (req, res) => {
            animalCollection.findOne({ user_id:  user_id, name: fval })
            .then((results) => {
            if (results != null) {
+               img = fs.readFileSync(results.imgCrop[0]);
+               results.imgCrop = img
                res.status(200).send(results);
                return
            }
@@ -543,6 +545,8 @@ app.get('/api/diary/animal', (req, res) => {
             animalCollection.findOne({ user_id:  user_id, name: animal_name })
              .then((results) => {
              if (results != null) {
+                 img = fs.readFileSync(results.imgCrop[0]);
+                 results.imgCrop = img
                  res.status(200).send(results);
                  return
              }

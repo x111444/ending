@@ -5,8 +5,13 @@
     <title>Document</title>
 </head>
 <body>
+
+   
     <form action="http://3.88.1.192:3000/api/diary/animal" method="post" enctype="multipart/form-data"> <!-- 멀티파트 폼 데이터 -->
         <input type="file" name="imgCrop">
+        <input type="text" name="anumal_name">
+        <input type="text" name="sex">
+        <input type="text" name="birth">
         <input type="text" name="user_id">
         <button type="submit">Submit</button>
     </form>

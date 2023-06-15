@@ -215,7 +215,7 @@ app.post('/api/diary/animal', (req, res) => {
                 console.log('mongo error in update', err);
                 return;
             });
-            const new_animal = { user_id: id, name: animal_name, birth: birth,sex: sex, data: data ,images:images };
+            const new_animal = { user_id: id, name: animal_name, birth: birth,sex: sex, data: data ,imgCrop:images };
             animalCollection.insertOne(new_animal)
                 .then(() => {
                 res.status(201).send('animal add');
@@ -347,7 +347,7 @@ app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => 
       // 이미지 정보를 데이터베이스에 저장
       const animal = await animalCollection.updateOne(
         { user_id: id, name: animal_name },
-        { $push: { animal_images: imagePath } }
+        { $push: { imgCrop: imagePath } }
       );
     }
   
@@ -411,8 +411,7 @@ app.get('/api/diary/animal/images', async (req, res) => {
         } else {
             const animal_images= await animalCollection.findOne({ user_id: id, name: animal_name });
             const images = [];
-            console.log(animal_images.animal_images)
-            for (const animal of animal_images.animal_images) {
+            for (const animal of animal_images.imgCrop) {
                 console.log(animal)
                 const data = await fs.promises.readFile(animal);
                 images.push(data);
@@ -502,12 +501,7 @@ app.get('/api/diary/animal', (req, res) => {
     console.log(req.query);
     const { id, animal_name } = req.query;
 
-    //test
-    userCollection.find({})
-    .toArray()
-    .then((documents) => {
-    console.log('모든 문서:', documents);
-    })
+
 
     userCollection.findOne({ user_id: id })
     .then((result) => {
@@ -521,9 +515,11 @@ app.get('/api/diary/animal', (req, res) => {
            .then((results) => {
            if (results != null) {
                res.status(200).send(results);
+               return
            }
            else {
                res.status(409).send('animal not exists');
+               return
            }
            })
            .catch((err) => {
@@ -538,9 +534,11 @@ app.get('/api/diary/animal', (req, res) => {
              .then((results) => {
              if (results != null) {
                  res.status(200).send(results);
+                 return
              }
              else {
                  res.status(409).send('animal not exists');
+                 return
              }
              })
              .catch((err) => {

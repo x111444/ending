@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animal Diary</title>
+</head>
+<body>
+    <h1>Animal Diary</h1>
+    <label for="user_id">User ID:</label>
+    <input type="text" id="user_id" name="user_id"><br><br>
+
+    <label for="animal_name">Animal Name (optional):</label>
+    <input type="text" id="animal_name" name="animal_name"><br><br>
+
+    <button onclick="getAnimal()">Get Animal</button>
+
+    <div id="animalImageContainer"></div>
+
+    <script>
+        function getAnimal() {
+            const user_id = document.getElementById("user_id").value;
+            const animal_name = document.getElementById("animal_name").value;
+            
+            const url = `http://3.88.1.192:3000/api/diary/animal?user_id=${user_id}&animal_name=${animal_name}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    displayAnimalImage(data.imgCrop);
+                })
+                .catch(error => console.log(error));
+        }
+
+        function displayAnimalImage(imgCrop) {
+            const container = document.getElementById("animalImageContainer");
+            container.innerHTML = ""; // Clear previous images
+            
+            
+            const image = document.createElement("img");
+            console.log(imgCrop.data)
+            image.src = `data:image/png;base64,${imgCrop.data.toString('base64')}`;
+            container.appendChild(image);
+            
+        }
+    </script>
+</body>
+</html>
+위의 코드에서 displayAnimalImage() 함수가 추가되었습니다. 이 함수는 imgCrop 배열을 인자로 받아 animalImageContainer라는 div 요소에 이미지를 추가합니다. imgCrop 배열의 각 요소는 이미지를 Base64로 인코딩한 문자열입니다. 따라서 이미지를 출력하기 위해 <img> 요소를 생성하고 src 속성에 Base64 문자열을 할당합니다.
+
+displayAnimalImage() 함수는 getAnimal() 함수에서 호출되며, 서버 응답으로 받은 imgCrop 배열을 인자로 전달합니다. 이미지를 출력하기 전에 animalImageContainer 내부의 내용을 지우고(container.innerHTML = ""), 반복문을 사용하여 각 이미지를 추가합니다.
+
+이제 클라이언트 HTML에서 Get Animal 버튼을 클릭하면 서버로부터 응답을 받고 이미지를 출력할 수 있습니다.
+
+
+
+
+
+

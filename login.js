@@ -545,7 +545,7 @@ app.get('/api/diary/animal', (req, res) => {
             animalCollection.findOne({ user_id:  user_id, name: animal_name })
              .then((results) => {
              if (results != null) {
-                 img = fs.readFileSync(results.imgCrop[0]);
+                 img =  fs.promises.readFile(results.imgCrop[0]);
                  results.imgCrop = img
                  res.status(200).send(results);
                  return

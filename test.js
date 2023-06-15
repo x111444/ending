@@ -10,7 +10,7 @@ axios.defaults.withCredentials = true
 */
 
 
-
+/*
 const imagePath1 = "test/test1.PNG";
 const img = fs.readFileSync(imagePath1);
 console.log(typeof img)
@@ -28,7 +28,7 @@ axios.post('http://3.88.1.192:3000/api/diary/animal',formData, {
   console.log(err.response.data)
 });
 
-/*
+
  axios.post('http://3.88.1.192:3000/api/diary/animal', {
     id: 'user1234@naver.com',
     animal_name: 'cat',

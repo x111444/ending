@@ -494,6 +494,7 @@ app.get('/api/diary/animals', (req, res) => {
             img = fs.readFileSync(animals.imgCrop[0]);
             animals.imgCrop = img
             res.status(200).send(animals);
+            return
         }
     })
         .catch((err) => {

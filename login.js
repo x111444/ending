@@ -54,14 +54,7 @@ const connection = mysql.createConnection({
     database : 'mydb6'
 });
 
-/*
-const connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'user'
-});
-*/
+
 const corsOptions = {
     origin: 'http://localhost:9000',
     optionsSuccessStatus: 200 // 성공 응답 코드
@@ -509,6 +502,13 @@ app.get('/api/diary/animal', (req, res) => {
     console.log(req.query);
     const { id, animal_name } = req.query;
     let user_data
+
+    //test
+    userCollection.find({})
+    .toArray()
+    .then((documents) => {
+    console.log('모든 문서:', documents);
+    })
     userCollection.findOne({ user_id: id }, (err, result) => {
         if(result)
          user_data = result
@@ -570,12 +570,6 @@ app.get('/api/diary/animals/name', (req, res) => {
 
 });
 
-//짐승들 이벤트만 가져오기
-app.get('/api/diary/animals/event', (req, res) => {
-    console.log('dairy man');
-    console.log(req.query);
-    const { id } = req.query;
-});
 
 //짐승 이벤트만 가져오기
 app.get('/api/diary/animal/event', (req, res) => {

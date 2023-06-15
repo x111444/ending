@@ -501,7 +501,6 @@ app.get('/api/diary/animal', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
     const { id, animal_name } = req.query;
-    let user_data
 
     //test
     userCollection.find({})
@@ -516,9 +515,9 @@ app.get('/api/diary/animal', (req, res) => {
         {  
           if(animal_name === undefined)
           {
-           console.log(user_data)
+           console.log(result)
            console.log("111")
-           res.status(200).send(user_data)
+           res.status(200).send(result)
            return
           }
           else

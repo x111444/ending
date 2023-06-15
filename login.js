@@ -510,11 +510,9 @@ app.get('/api/diary/animal', (req, res) => {
     console.log('모든 문서:', documents);
     })
 
-    userCollection.findOne({ user_id: id }, (err, result) => {
+    userCollection.findOne({ user_id: id }, (result,err) => {
         if(result != undefined)
-        {
-
-            
+        {  
           if(animal_name === undefined)
           {
            console.log(user_data)
@@ -540,6 +538,13 @@ app.get('/api/diary/animal', (req, res) => {
              })
             }
         }
+        else
+        {
+            res.status(501).send('mongo error in find id');
+            console.log('mongo error in find id', err);
+            return;
+        }
+
         if(err)
         {
             res.status(501).send('mongo error in find id');

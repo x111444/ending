@@ -1,7 +1,7 @@
 const axios = require("axios");
 const fs = require("fs");
 const moment = require('moment');
-
+const FormData = require('form-data');
 axios.defaults.withCredentials = true
 /*
 확인된 문제
@@ -22,7 +22,7 @@ formData.append('sex', '남')
 formData.append('birth', '2020-01-01')
 formData.append('data', {})
 axios.post('http://3.88.1.192:3000/api/diary/animal',formData, {
-  headers: formData.getHeaders
+  headers: formData.getHeaders()
 }).then((rep)=>{
   console.log("add animal is clear ")
 }).catch((err) => {

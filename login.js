@@ -524,8 +524,11 @@ app.get('/api/diary/animal', (req, res) => {
            animalCollection.findOne({ user_id:  user_id, name: fval })
            .then((results) => {
            if (results != null) {
-               img = fs.readFileSync(results.imgCrop[0]);
-               results.imgCrop = img
+               fs.readFileSync(results.imgCrop[0]).then(
+                (img_buf) =>{
+                    results.imgCrop = img_buf
+                }
+               ).catch((err) =>{results.imgCrop = null});
                res.status(200).send(results);
                return
            }

@@ -124,7 +124,7 @@ axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
 }).catch((err) => {
   console.log(err.response.data)
 });;
-
+*/
 
 
 //get

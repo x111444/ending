@@ -108,7 +108,7 @@ const upload = multer({
         }
     }),
     fileFilter : FileFilter,
-    limits: { fileSize: 10 * 1024 * 1024,files: 10,parts: 10 } // 5메가로 용량 제한
+    limits: { fileSize: 100 * 1024 * 1024,files: 10,parts: 10 } // 5메가로 용량 제한
 });
 
 
@@ -538,9 +538,9 @@ app.get('/api/diary/animal', (req, res) => {
            }
            })
            .catch((err) => {
-           res.status(501).send('mongo error in find animal_name');
-           console.log('mongo error in find animal_name', err);
-           return;
+            res.status(501).send('mongo error in find animal_name');
+            console.log('mongo error in find animal_name', err);
+            return;
            })
           }
           else

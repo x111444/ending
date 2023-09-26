@@ -99,7 +99,7 @@ const upload = multer({
             cb(null, path.basename(file.originalname, ext) + Date.now() + ext); // 파일이름 + 날짜 + 확장자 이름으로 저장
         }
     }),
-    fileFilter : FileFilter,
+    //fileFilter : FileFilter,
     limits: { fileSize: 100 * 1024 * 1024,files: 10,parts: 10 } // 5메가로 용량 제한
 });
 

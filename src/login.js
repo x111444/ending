@@ -186,7 +186,7 @@ app.post('/api/signup', (req, res) => {
 
 //다이어리 수정
 //짐승추가
-app.post('/api/diary/animal', upload.single('profile_image'), (req, res) => {
+app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     console.log('add animal');
     console.log(req.body)
     console.log(req.file)

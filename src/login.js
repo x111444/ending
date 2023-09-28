@@ -497,7 +497,7 @@ app.get('/api/diary/animal', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
     const { user_id, animal_name } = req.query;
-
+    let flag = true
 
 
     userCollection.findOne({ user_id:  user_id })
@@ -516,18 +516,17 @@ app.get('/api/diary/animal', (req, res) => {
                     results.imgCrop = img_buf
                 }
                ).catch((err) =>{results.imgCrop = null});
-               res.status(200).send(results);
-               return
+               return res.status(200).send(results);
+               
            }
            else {
-               res.status(409).send('animal not exists');
-               return
+               return res.status(409).send('animal not exists');
            }
            })
            .catch((err) => {
-            res.status(501).send('mongo error in find animal_name');
+            
             console.log('mongo error in find animal_name', err);
-            return;
+            return res.status(501).send('mongo error in find animal_name');
            })
           }
           else
@@ -537,34 +536,29 @@ app.get('/api/diary/animal', (req, res) => {
              if (results != null) {
                  img =   fs.readFileSync(results.imgCrop[0]);
                  results.imgCrop = img
-                 res.status(200).send(results);
-                 return
+                 return  res.status(200).send(results);
              }
-             else {
-                 res.status(409).send('animal not exists');
-                 return
+             else {  
+                 return res.status(409).send('animal not exists');
              }
              })
              .catch((err) => {
-             res.status(501).send('mongo error in find animal_name');
              console.log('mongo error in find animal_name', err);
-             return;
+             return res.status(501).send('mongo error in find animal_name');
              })
             }
         }
         else
         {
-            res.status(501).send('mongo error in find id');
+            
             console.log('mongo error in find id', err);
-            return;
+            return res.status(501).send('mongo error in find id');;
         }
 
         
     })
     .catch((err) =>{
-        res.status(501).send('mongo error in find id');
-        console.log('mongo error in find id', err);
-        return;
+        return  res.status(501).send('mongo error in find id');;
     })
     
     

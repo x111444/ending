@@ -2,11 +2,12 @@
   "name": "popo",
   "version": "1.0.0",
   "description": "dd",
-  "main": "src/index.js",
+  "main": "src/init.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon --exec babel-node src/init.js",
-    "run": "babel-node src/init.js"
+    "build": "babel src -d dist",
+    "start": "node dist/init.js"
   },
   "author": "",
   "license": "ISC",

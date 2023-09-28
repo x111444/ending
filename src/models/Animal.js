@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 
 const  animalSchema = new mongoose.Schema({
-       ImgCrop: String,
+       imgCrop: String,
        birth: String,
        user_id: {type:String,required: true},
        name: {type:String,required: true},

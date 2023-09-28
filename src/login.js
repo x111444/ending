@@ -188,9 +188,9 @@ app.post('/api/signup', (req, res) => {
 //짐승추가
 app.post('/api/diary/animal', upload.single('profile_image'), (req, res) => {
     console.log('add animal');
-    const { user_id, animal_name, birth,sex, data} = req.body;
     console.log(req.body)
     console.log(req.file)
+    const { user_id, animal_name, birth,sex, data} = req.body;
     let img_list =[] 
     if (req.file != undefined){
       img_list.push(req.file.path)

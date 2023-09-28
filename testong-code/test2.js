@@ -1,9 +1,8 @@
-const handleUpdateButtonClick = () => {
 
     const profileData = {
-      user_id ,
+      user_id,
       animal_name: petName,
-      sex: petSex,
+      sex: petSex ,
       birth: petBirth,
       imgCrop,
     } 
@@ -20,4 +19,3 @@ const handleUpdateButtonClick = () => {
         // Handle errors
         console.error(error);
       });
-  };

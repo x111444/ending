@@ -510,12 +510,13 @@ app.get('/api/diary/animal', (req, res) => {
            animalCollection.findOne({ user_id:  user_id, name: fval })
            .then((results) => {
            if (results != null) {
-                fs.readFile(results.imgCrop[0], 'utf8').then(
-                (img_buf) =>{
-                    results.imgCrop = img_buf
-                }
-               ).catch((err) =>{results.imgCrop = null});
-               return res.status(200).send(results);
+                fs.readFile(results.imgCrop[0], 'utf8', (err, data) => {
+                    if (err) {
+                      results.imgCrop = null
+                    
+                    }
+                    results.imgCrop = data
+                })
                
            }
            else {

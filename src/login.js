@@ -495,7 +495,7 @@ app.get('/api/diary/animals', (req, res) => {
 app.get('/api/diary/animal', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
-    const { user_id, animal_name } = req.query;
+    let { user_id, animal_name } = req.query;
     let flag = true
     if(user_id  === '')
      user_id = '111'

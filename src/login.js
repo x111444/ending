@@ -8,7 +8,6 @@ const MongoStore = require('connect-mongo');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const { emitWarning } = require('process');
 const app = express();
 //mongodb 연결정보1
@@ -317,7 +316,7 @@ app.put('/api/diary/animal/birth', (req, res) => {
 });
 
 //짐승 이미지 추가 여러개
-app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => {
+app.post('/api/diary/animal/images', upload.array('imgCrop'), async (req, res) => {
     console.log('animal adjust image');
     console.log(req.body);
     const files = req.files
@@ -353,7 +352,7 @@ app.post('/api/diary/animal/images', upload.array('files'), async (req, res) => 
   });
 
 //짐승 이미지 추가 1개
-app.post('/api/diary/animal/image', upload.single('file'), async (req, res) => {
+app.post('/api/diary/animal/image', upload.single('imgCrop,'), async (req, res) => {
     console.log('animal adjust image');
     console.log(req.body);
     console.log(req.file)
@@ -511,7 +510,7 @@ app.get('/api/diary/animal', (req, res) => {
            animalCollection.findOne({ user_id:  user_id, name: fval })
            .then((results) => {
            if (results != null) {
-               fs.readFileSync(results.imgCrop[0]).then(
+                fs.readFileSync(results.imgCrop[0]).then(
                 (img_buf) =>{
                     results.imgCrop = img_buf
                 }

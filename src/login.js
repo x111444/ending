@@ -497,8 +497,8 @@ app.get('/api/diary/animal', (req, res) => {
     console.log(req.query);
     const { user_id, animal_name } = req.query;
     let flag = true
-
-
+    if(user_id  === '')
+     user_id = '111'
     userCollection.findOne({ user_id:  user_id })
     .then((result) => {
         if(result != undefined)

@@ -492,22 +492,22 @@ app.get('/api/diary/animals', (req, res) => {
 
 
 //짐승 가져오기
-app.get('/api/diary/animal', (req, res) => {
+app.get('/api/diary/animal', async (req, res) => {
     console.log('dairy man');
     console.log(req.query);
     let { user_id, animal_name } = req.query;
     if(user_id  === '')
      user_id = '111'
-    userCollection.findOne({ user_id:  user_id })
-    .then((result) => {
+    const result =  await userCollection.findOne({ user_id:  user_id })
+    try{
         if(result != undefined)
         {  
           if(animal_name === undefined)
           {
            console.log(result)
            const animal_name = result.animals[0]
-           animalCollection.find({ user_id:  user_id })
-           .then((animal_results) => {
+           let animal_results =  await animalCollection.find({ user_id:  user_id })
+           
             console.log(animal_results)
             console.log(typeof(animal_result))
             if (animal_results != null) {
@@ -530,12 +530,8 @@ app.get('/api/diary/animal', (req, res) => {
            else {
                return res.status(409).send('animal not exists');
            }
-           })
-           .catch((err) => {
-            
-            console.log('mongo error in find animal_name', err);
-            return res.status(501).send('mongo error in find animal_name');
-           })
+           
+           
           }
           else
           {
@@ -568,13 +564,15 @@ app.get('/api/diary/animal', (req, res) => {
             console.log('mongo error in find id', err);
             return res.status(501).send('mongo error in find id');;
         }
-
+    }
+    catch(err)
+    {
+        console.log(err)
+        res.status(501).send('mongo error');
+    }
         
-    })
-    .catch((err) =>{
-        console.log('mongo error in find id', err);
-        return  res.status(501).send('mongo error in find id');;
-    })
+    
+    
     
     
 

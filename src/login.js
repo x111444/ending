@@ -504,12 +504,10 @@ app.get('/api/diary/animal', async (req, res) => {
         {  
           if(animal_name === undefined)
           {
-           console.log(result)
-           const animal_name = result.animals[0]
-           let animal_results =  await animalCollection.find({ user_id:  user_id })
-           
+            console.log(result)
+            let animal_results =  await animalCollection.find({ user_id:  user_id })
             console.log(animal_results)
-            console.log(typeof(animal_result))
+            console.log(typeof(animal_results))
             if (animal_results != null) {
                 for(let animal_result in animal_results){
                 animal_result.imgCrop

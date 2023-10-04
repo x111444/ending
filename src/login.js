@@ -513,6 +513,7 @@ app.get('/api/diary/animal', async (req, res) => {
                 if (Array.isArray(animal_results[val].imgCrop) && animal_results[val].imgCrop.length > 0) {
                 await fs.promises.readFile(animal_results[val].imgCrop[0] , (err, data) => {
                     if (err) {
+                        console.log(err)
                         animal_results[val].imgCrop = null
                     }
                     console.log(typeof(data))

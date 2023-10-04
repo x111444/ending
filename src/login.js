@@ -506,18 +506,22 @@ app.get('/api/diary/animal', (req, res) => {
           if(animal_name === undefined)
           {
            console.log(result)
-           const  fval = result.animals[0]
-           animalCollection.findOne({ user_id:  user_id, name: fval })
-           .then((results) => {
-           if (results != null) {
-                fs.readFile(results.imgCrop[0], 'utf8', (err, data) => {
+           const animal_name = result.animals[0]
+           animalCollection.findOne({ user_id:  user_id, name: animal_name })
+           .then((animal_result) => {
+           
+           if (animal_result != null) {
+                fs.readFile(animal_results.imgCrop[0], 'utf8', (err, data) => {
                     if (err) {
-                      results.imgCrop = null
-                    
+                        animal_results.imgCrop = null
+                        return res.status(200).send(animal_results)
                     }
-                    results.imgCrop = data
+                    animal_results.imgCrop = data
+                    return res.status(200).send(animal_results)
                 })
                
+
+
            }
            else {
                return res.status(409).send('animal not exists');

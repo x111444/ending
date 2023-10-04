@@ -514,9 +514,11 @@ app.get('/api/diary/animal', async (req, res) => {
                 for(let animal_result in animal_results){
                 fs.readFile(animal_result.imgCrop[0], 'utf8', (err, data) => {
                     if (err) {
+                        console.log("1")
                         animal_result.imgCrop = null
                        
                     }
+                    console.log("2")
                     animal_result.imgCrop = data
                    
                 })

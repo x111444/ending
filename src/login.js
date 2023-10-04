@@ -506,18 +506,21 @@ app.get('/api/diary/animal', (req, res) => {
           {
            console.log(result)
            const animal_name = result.animals[0]
-           animalCollection.findOne({ user_id:  user_id, name: animal_name })
-           .then((animal_result) => {
+           animalCollection.find({ user_id:  user_id })
+           .then((animal_results) => {
            
-           if (animal_result != null) {
+            if (animal_results != null) {
+                for(let animal_result in animal_results){
                 fs.readFile(animal_result.imgCrop[0], 'utf8', (err, data) => {
                     if (err) {
                         animal_result.imgCrop = null
-                        return res.status(200).send(animal_result)
+                       
                     }
                     animal_result.imgCrop = data
-                    return res.status(200).send(animal_result)
+                   
                 })
+            }
+            return res.status(200).send(animal_results)
                
 
 

@@ -512,7 +512,7 @@ app.get('/api/diary/animal', async (req, res) => {
                 console.log(Array.isArray(animal_results[val].imgCrop) ,typeof(animal_results[val].imgCrop) , animal_results[val].imgCrop)
 
                 if (Array.isArray(animal_results[val].imgCrop) && animal_results[val].imgCrop.length > 0) {
-                fs.readFile(animal_results[val].imgCrop[0], 'utf8', (err, data) => {
+                await fs.readFile(animal_results[val].imgCrop[0], 'utf8', (err, data) => {
                     if (err) {
                         animal_results[val].imgCrop = null
                     }

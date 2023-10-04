@@ -508,7 +508,8 @@ app.get('/api/diary/animal', (req, res) => {
            const animal_name = result.animals[0]
            animalCollection.find({ user_id:  user_id })
            .then((animal_results) => {
-           
+            console.log(animal_results)
+            console.log(typeof(animal_result))
             if (animal_results != null) {
                 for(let animal_result in animal_results){
                 fs.readFile(animal_result.imgCrop[0], 'utf8', (err, data) => {
@@ -521,6 +522,7 @@ app.get('/api/diary/animal', (req, res) => {
                 })
             }
             return res.status(200).send(animal_results)
+            
                
 
 

@@ -523,6 +523,7 @@ app.get('/api/diary/animal', async (req, res) => {
                 }
             }
             //console.log(animal_results)
+            console.log("?")
             return res.status(200).send(animal_results)
             
                

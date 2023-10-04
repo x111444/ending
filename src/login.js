@@ -572,6 +572,7 @@ app.get('/api/diary/animal', (req, res) => {
         
     })
     .catch((err) =>{
+        console.log('mongo error in find id', err);
         return  res.status(501).send('mongo error in find id');;
     })
     

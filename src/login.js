@@ -511,15 +511,14 @@ app.get('/api/diary/animal', async (req, res) => {
                 
 
                 if (Array.isArray(animal_results[val].imgCrop) && animal_results[val].imgCrop.length > 0) {
-                await fs.promises.readFile(animal_results[val].imgCrop[0] , (err, data) => {
-                    if (err) {
-                        console.log(err)
-                        animal_results[val].imgCrop = null
-                    }
-                    console.log(typeof(data))
-                    animal_results[val].imgCrop = data
-                   
-                })
+                    try {
+                        const data = await fs.promises.readFile(animal_results[val].imgCrop[0]);
+                        console.log(typeof(data));
+                        animal_results[val].imgCrop = data;
+                      } catch (err) {
+                        console.error('파일 읽기 오류:', err);
+                        animal_results[val].imgCrop = null;
+                      }
                 }
             }
             //console.log(animal_results)

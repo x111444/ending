@@ -572,7 +572,7 @@ app.get('/api/diary/animal', async (req, res) => {
     }
     catch(err)
     {
-        console.log(err)
+        console.log(err.message)
         res.status(501).send('mongo error');
     }
         

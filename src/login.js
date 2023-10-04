@@ -506,9 +506,9 @@ app.get('/api/diary/animal', async (req, res) => {
           {
             console.log(result)
             let animal_results =  await animalCollection.find({ user_id:  user_id }).toArray()
-            console.log(animal_results)
             if (animal_results != null) {
                 for(let animal_result in animal_results){
+                console.log(animal_result )
                 console.log(Array.isArray(animal_result.imgCrop) ,typeof(animal_result.imgCrop) , animal_result.imgCrop)
 
                 if (Array.isArray(animal_result.imgCrop) && animal_result.imgCrop.length > 0) {

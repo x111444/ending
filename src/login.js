@@ -509,7 +509,8 @@ app.get('/api/diary/animal', async (req, res) => {
             console.log(animal_results)
             if (animal_results != null) {
                 for(let animal_result in animal_results){
-                
+                console.log(Array.isArray(animal_result.imgCrop),animal_result.imgCrop.length)
+
                 if (Array.isArray(animal_result.imgCrop) && animal_result.imgCrop.length > 0) {
                 fs.readFile(animal_result.imgCrop[0], 'utf8', (err, data) => {
                     if (err) {

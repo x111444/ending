@@ -516,7 +516,7 @@ app.get('/api/diary/animal', async (req, res) => {
                     if (err) {
                         animal_results[val].imgCrop = null
                     }
-                    console.log(typeof(data), data)
+                    console.log(typeof(data))
                     animal_results[val].imgCrop = data
                    
                 })

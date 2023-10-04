@@ -508,8 +508,7 @@ app.get('/api/diary/animal', async (req, res) => {
             let animal_results =  await animalCollection.find({ user_id:  user_id }).toArray()
             if (animal_results != null) {
                 for( let val in animal_results){
-                console.log(animal_results[val] )
-                console.log(Array.isArray(animal_results[val].imgCrop) ,typeof(animal_results[val].imgCrop) , animal_results[val].imgCrop)
+                
 
                 if (Array.isArray(animal_results[val].imgCrop) && animal_results[val].imgCrop.length > 0) {
                 await fs.promises.readFile(animal_results[val].imgCrop[0] , (err, data) => {

@@ -514,8 +514,7 @@ app.get('/api/diary/animal', async (req, res) => {
                     try {
                         const data = await fs.promises.readFile(animal_results[val].imgCrop[0]);
                         console.log(typeof(data));
-                        const blob = new Blob([data], { type: 'image/png' });
-                        animal_results[val].imgCrop = blob;
+                        animal_results[val].imgCrop = data;
                       } catch (err) {
                         console.error('파일 읽기 오류:', err);
                         animal_results[val].imgCrop = null;

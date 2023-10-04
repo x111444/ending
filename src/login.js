@@ -507,19 +507,19 @@ app.get('/api/diary/animal', async (req, res) => {
             console.log(result)
             let animal_results =  await animalCollection.find({ user_id:  user_id }).toArray()
             if (animal_results != null) {
-                for(let animal_result in animal_results){
-                console.log(animal_result )
-                console.log(Array.isArray(animal_result.imgCrop) ,typeof(animal_result.imgCrop) , animal_result.imgCrop)
+                for( let val in animal_results){
+                console.log(animal_results[val] )
+                console.log(Array.isArray(animal_results[val].imgCrop) ,typeof(animal_results[val].imgCrop) , animal_results[val].imgCrop)
 
-                if (Array.isArray(animal_result.imgCrop) && animal_result.imgCrop.length > 0) {
-                fs.readFile(animal_result.imgCrop[0], 'utf8', (err, data) => {
+                if (Array.isArray(animal_results[val].imgCrop) && animal_results[val].imgCrop.length > 0) {
+                fs.readFile(animal_results[val].imgCrop[0], 'utf8', (err, data) => {
                     if (err) {
                         console.log("1")
-                        animal_result.imgCrop = null
+                        animal_results[val].imgCrop = null
                        
                     }
                     console.log("2")
-                    animal_result.imgCrop = data
+                    animal_results[val].imgCrop = data
                    
                 })
                 }

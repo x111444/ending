@@ -512,16 +512,17 @@ app.get('/api/diary/animal', async (req, res) => {
                 console.log(Array.isArray(animal_results[val].imgCrop) ,typeof(animal_results[val].imgCrop) , animal_results[val].imgCrop)
 
                 if (Array.isArray(animal_results[val].imgCrop) && animal_results[val].imgCrop.length > 0) {
-                await fs.readFile(animal_results[val].imgCrop[0], 'utf8', (err, data) => {
+                fs.readFile(animal_results[val].imgCrop[0], 'utf8', (err, data) => {
                     if (err) {
                         animal_results[val].imgCrop = null
                     }
+                    console.log(typeof(data), data)
                     animal_results[val].imgCrop = data
                    
                 })
                 }
             }
-            console.log(animal_results)
+            //console.log(animal_results)
             return res.status(200).send(animal_results)
             
                

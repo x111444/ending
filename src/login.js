@@ -542,9 +542,15 @@ app.get('/api/diary/animal', (req, res) => {
             animalCollection.findOne({ user_id:  user_id, name: animal_name })
              .then((results) => {
              if (results != null) {
-                 img =   fs.readFileSync(results.imgCrop[0]);
-                 results.imgCrop = img
-                 return  res.status(200).send(results);
+                fs.readFile(results.imgCrop[0], 'utf8', (err, data) => {
+                    if (err) {
+                        results.imgCrop = null
+                        return  res.status(200).send(results);
+                    }
+                    results.imgCrop = data
+                    return  res.status(200).send(results);
+                })
+                 
              }
              else {  
                  return res.status(409).send('animal not exists');

@@ -496,7 +496,6 @@ app.get('/api/diary/animal', (req, res) => {
     console.log('dairy man');
     console.log(req.query);
     let { user_id, animal_name } = req.query;
-    let flag = true
     if(user_id  === '')
      user_id = '111'
     userCollection.findOne({ user_id:  user_id })
@@ -511,13 +510,13 @@ app.get('/api/diary/animal', (req, res) => {
            .then((animal_result) => {
            
            if (animal_result != null) {
-                fs.readFile(animal_results.imgCrop[0], 'utf8', (err, data) => {
+                fs.readFile(animal_result.imgCrop[0], 'utf8', (err, data) => {
                     if (err) {
-                        animal_results.imgCrop = null
-                        return res.status(200).send(animal_results)
+                        animal_result.imgCrop = null
+                        return res.status(200).send(animal_result)
                     }
-                    animal_results.imgCrop = data
-                    return res.status(200).send(animal_results)
+                    animal_result.imgCrop = data
+                    return res.status(200).send(animal_result)
                 })
                
 

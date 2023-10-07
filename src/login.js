@@ -103,8 +103,8 @@ const upload = multer(
 //로그인 API
 app.post('/api/login', (req, res) => {
     console.log('login man');
-    const { username, password } = req.body;
     console.log(req.body)
+    const { username, password } = req.body;
     // MySQL 데이터베이스에서 사용자 정보를 확인합니다.
     connection.query('SELECT * FROM user WHERE userName = ? AND userPassword = ?', [username, password], (error, results) => {
         if (error) {

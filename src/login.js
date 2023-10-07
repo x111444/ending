@@ -124,6 +124,7 @@ app.post('/api/login', (req, res) => {
             else {
                 // 로그인 성공 처리를 합니다.
                 console.log(results)
+                console.log(results[0].user_level)
                 req.session.username = username
                 req.session.userlevel = results[0].user_level
                 res.json({ success: true, message: 'Login successful', user: username });

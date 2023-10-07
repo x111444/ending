@@ -128,7 +128,7 @@ app.post('/api/login', (req, res) => {
                 req.session.userlevel = results[0].user_level
                 console.log(req.session)
          
-                res.json({ success: true, message: 'Login successful', user: username });
+                res.json({ success: true, message: 'Login successful', user: username, userlevel: results[0].user_level });
                 
             }
         }

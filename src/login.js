@@ -57,6 +57,8 @@ const corsOptions = {
     optionsSuccessStatus: 200 // 성공 응답 코드
 };
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cors({
     credential: 'true'
 }))

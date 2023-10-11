@@ -278,7 +278,7 @@ app.put('/api/diary/animal/event', (req, res) => {
             return;
         }
         else {
-            animalCollection.updateOne({ user_id:  user_id, name: animal_name }, { $set: { "data": events } })
+            animalCollection.updateOne({ user_id:  user_id, name: animal_name }, { $set: { data: events } })
                 .then(() => {
                 console.log("clear")
                 res.status(200).send('animal events update');

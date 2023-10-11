@@ -1,8 +1,8 @@
-const axios = require("axios");
+//const axios = require("axios");
 const fs = require("fs");
-const moment = require('moment');
-const FormData = require('form-data');
-axios.defaults.withCredentials = true
+//const moment = require('moment');
+//const FormData = require('form-data');
+//axios.defaults.withCredentials = true
 /*
 확인된 문제
 1.동시에 명령 떨어질때 명령어 씹힘 현상 발생 실사용시 발생 확률 낮음
@@ -80,20 +80,34 @@ axios.put('http://3.88.1.192:3000/api/diary/animal/event', {
 }).catch((err) => {
   console.log(err.response.data)
 });
-
-axios.put('http://3.88.1.192:3000/api/diary/animal/event', {
-  id: 'user1234@naver.com',
-  animal_name: 'cat',
-  events: [
-    { date: moment('2023-06-01').format('YYYY-MM-DD'), value: 'vaccination', content:"오늘 뭐 했대" },
-    { date: moment('2023-06-02').format('YYYY-MM-DD'), value: 'grooming' , content:"오늘 뭐 했대" }
-  ]
-}).then((rep) => {
-  console.log("add animal event is clear ")
-}).catch((err) => {
-  console.log(err.response.data)
-});
-
+*/
+fetch('http://3.88.1.192:3000/api/diary/animal/event', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    id: '111',
+    animal_name: 'ㅁㄴㅇ',
+    events: [
+      { date: '2023-10-11', value: 'vaccination', content: "오늘 뭐 했대" },
+      { date: '2023-10-10', value: 'grooming', content: "오늘 뭐 했대" }
+    ]
+  })
+})
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`Request failed with status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("add animal event is clear");
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+/*
 axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
     id: 'user1234@naver.com',
     animal_name: 'dog',
@@ -124,7 +138,7 @@ axios.put('http://3.88.1.192:3000/api/diary/animal/birth', {
 }).catch((err) => {
   console.log(err.response.data)
 });;
-*/
+
 
 
 //get
@@ -156,7 +170,7 @@ axios.get('http://3.88.1.192:3000/api/diary/animal', {
 
 //로그인 관련
 
-/*
+
 let Kookie
 axios.post('http://3.88.1.192:3000/api/login', { 
       username: 'user1234@naver.com',

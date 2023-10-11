@@ -87,7 +87,7 @@ fetch('http://3.88.1.192:3000/api/diary/animal/event', {
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    id: '111',
+    user_id: '111',
     animal_name: 'ㅁㄴㅇ',
     events: [
       { date: '2023-10-11', value: 'vaccination', content: "오늘 뭐 했대" },

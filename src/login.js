@@ -270,7 +270,7 @@ app.put('/api/diary/animal/event', (req, res) => {
     console.log('animal event');
     console.log(req.body);
     const {  user_id, animal_name, events } = req.body;
-    userCollection.findOne({ user_id:  user_id, 'animals.animal_name': animal_name  })
+    userCollection.findOne({ user_id:  user_id, animals: animal_name  })
     .then((check)=>{
         if (check == null) {
             res.status(409).send('animal no exists');

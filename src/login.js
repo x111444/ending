@@ -268,8 +268,9 @@ app.put('/api/diary/animal/weight', (req, res) => {
 //짐승 이벤트 수정
 app.put('/api/diary/animal/event', (req, res) => {
     console.log('animal event');
-    console.log(req.body);
+    
     const {  user_id, animal_name, events } = req.body;
+    console.log(user_id, animal_name, events )
     userCollection.findOne({ user_id:  user_id, animals: animal_name  })
     .then((check)=>{
         if (check == null) {

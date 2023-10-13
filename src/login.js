@@ -136,17 +136,6 @@ app.post('/api/login', (req, res) => {
 });
 
 
-//로그인 세션api
-app.get('/api/checkLogin', (req, res) => {
-    const  _id  = req.session;
-    // 세션에 저장된 사용자 정보가 있는지 및 사용자 ID와 일치하는지 확인
-    if (req.cookies.id === id) {
-      res.status(200).json({ isLoggedIn: true });
-    } else {
-      res.status(200).json({ isLoggedIn: false });
-    }
-  });
-
 //로그아웃
 app.post('/api/logout', (req, res) => {
     // 세션을 파기하여 로그아웃 처리
@@ -192,7 +181,7 @@ app.post('/api/signup', (req, res) => {
 
 
 //다이어리 수정
-//짐승추가
+//짐승추가종합
 app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     console.log('add animal');
     console.log(req.body)
@@ -205,8 +194,23 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     userCollection.findOne({ user_id:  user_id, animals: animal_name })
     .then((check)=>{
         if (check != undefined ) {
-            res.status(409).send('animal already exists');
-            return;
+            const updateData = {
+                birth: birth,
+                sex: sex,
+                data: data
+              };
+              if (img_list.length > 1) {
+                updateData.imgCrop = img_list;
+              }
+              
+            animalCollection.updateOne( { user_id: user_id, name: animal_name },updateData)
+            .then(() => {
+            res.status(201).send('animal add');
+             }).catch((err) => {
+            res.status(501).send('mongo error in add animal');
+            console.log('mongo error in add animal', err);
+            return
+            });  
         }
         else {
             userCollection.updateOne({ user_id:  user_id }, { $push: { animals: animal_name } })
@@ -235,131 +239,44 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
 
 });
 
-//짐승 무게 수정
-app.put('/api/diary/animal/weight', (req, res) => {
-    console.log('animal weight');
-    console.log(req.body);
-    const {  user_id, animal_name, weights } = req.body;
-    userCollection.findOne({ user_id:  user_id, animals: animal_name  })
-    .then((check)=>{
-        if (check == null) {
-            res.status(409).send('animal no exists');
-            return;
-        }
-        else {
-            animalCollection.updateOne({ user_id:  user_id, name: animal_name }, { $set: { "data.weights": weights } })
-                .then(() => {
-                res.status(200).send('animal weights update');
-            }).catch((err) => {
-                res.status(501).send('mongo error in update weights');
-                console.log('mongo error in update weights', err);
-            });
-        }
-
-    })
-    .catch((err) => {
-        res.status(501).send('mongo error in find animal');
-        console.log('mongo error in find animal', err);
-        return;
-    });
-    
-});
-
-//짐승 이벤트 수정
-app.put('/api/diary/animal/event', (req, res) => {
-    console.log('animal event');
-    
-    const {  user_id, animal_name, events } = req.body;
-    console.log(user_id, animal_name, events )
-    userCollection.findOne({ user_id:  user_id, animals: animal_name  })
-    .then((check)=>{
-        if (check == null) {
-            res.status(409).send('animal no exists');
-            return;
-        }
-        else {
-            animalCollection.updateOne({ user_id:  user_id, name: animal_name }, { $set: { data: events } })
-                .then(() => {
-                console.log("clear")
-                res.status(200).send('animal events update');
-            }).catch((err) => {
-                console.log('mongo error in update events', err);
-                res.status(501).send('mongo error in update events');
-            });
-        }
-    })
-    .catch((err) => {
-        res.status(501).send('mongo error in find animal');
-        console.log('mongo error in find animal', err);
-        return;
-    });
-    
-});
-
-//짐승 생일 변경
-app.put('/api/diary/animal/birth', (req, res) => {
-    console.log('animal adjust birth');
-    console.log(req.body);
-    const {  user_id, animal_name, birth } = req.body;
-    userCollection.findOne({ user_id:  user_id, animals: animal_name  })
-    .then((check)=>{
-        if (check == null) {
-            res.status(409).send('animal no exists');
-            return;
-        }
-        else {
-            animalCollection.updateOne({ user_id:  user_id, name: animal_name }, { $set: { birth: birth } })
-                .then(() => {
-                res.status(200).send('animal birth update');
-            }).catch((err) => {
-                res.status(501).send('mongo error in update birth');
-                console.log('mongo error in update birth', err);
-            });
-        }
-    })
-    .catch((err) => {
-        res.status(501).send('mongo error in find animal');
-        console.log('mongo error in find animal', err);
-        return;
-    });
-    
-});
-
-//짐승 이미지 추가 여러개
-app.post('/api/diary/animal/images', upload.array('imgCrop'), async (req, res) => {
-    console.log('animal adjust image');
-    console.log(req.body);
-    const files = req.files
-    const {  user_id, animal_name } = req.body;
-    
-    console.log( user_id, animal_name, files)
-    // 업로드된 이미지 파일들
-    try {
-      const user = await userCollection.findOne({ user_id:  user_id });
-      if (!user) {
-        res.status(409).send('User does not exist');
-        return;
-      }
-  
-    const imagePaths = [];
-      
-    for (const file of files) {
-      const imagePath = file.path; // 이미지 파일 경로
-      imagePaths.push(imagePath);
-      console.log(file.path)
-      // 이미지 정보를 데이터베이스에 저장
-      const animal = await animalCollection.updateOne(
-        { user_id:  user_id, name: animal_name },
-        { $push: { imgCrop: imagePath } }
-      );
+//수정종합
+app.put('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
+    console.log('add animal');
+    console.log(req.body)
+    console.log(req.file)
+    const { user_id, animal_name, birth,sex, data} = req.body;
+    let img_list =[] 
+    if (req.file != undefined){
+      img_list.push(req.file.path)
     }
-  
-      res.status(200).json({ success: true, imagePaths });
-    } catch (err) {
-      res.status(500).send('Server error');
-      console.log('Error:', err);
-    }
-  });
+    userCollection.findOne({ user_id:  user_id, animals: animal_name })
+    .then((check)=>{
+        if (check == undefined ) {
+            res.status(409).send('animal no exists');
+            return;
+        }
+        else {
+           
+            
+            const new_animal = { user_id:  user_id, name: animal_name, birth: birth,sex: sex, data: data ,imgCrop:img_list };
+            animalCollection.insertOne(new_animal)
+                .then(() => {
+                res.status(201).send('animal add');
+            }).catch((err) => {
+                res.status(501).send('mongo error in add animal');
+                console.log('mongo error in add animal', err);
+                return
+            });
+        }
+    })
+    .catch((err) => {
+        res.status(501).send('mongo error in find animal');
+        console.log('mongo error in find animal', err);
+        return;
+    });
+
+});
+
 
 //짐승 이미지 추가 1개
 app.post('/api/diary/animal/image', upload.single('imgCrop,'), async (req, res) => {
@@ -398,43 +315,6 @@ app.post('/api/diary/animal/image', upload.single('imgCrop,'), async (req, res) 
     }
   });
 
-// 짐승 이미지 불러오기
-app.get('/api/diary/animal/images', async (req, res) => {
-    console.log('try get image');
-    console.log(req.query);
-    const {  user_id, animal_name } = req.query;
-    console.log( user_id);
-
-    try {
-        const user_data = await userCollection.findOne({ user_id:  user_id });
-        if (user_data === null) {
-            console.log("no data");
-            res.status(409).send('id not exists');
-            return;
-        } else {
-            const animal_images= await animalCollection.findOne({ user_id:  user_id, name: animal_name });
-            const images = [];
-            for (const animal of animal_images.imgCrop) {
-                console.log(animal)
-                const data = await fs.promises.readFile(animal);
-                images.push(data);
-            }
-
-            // 이미지 MIME 타입 설정
-            res.setHeader('Content-Type', 'image/jpeg');
-            
-            for (const image of images) {
-                res.write(image);
-            }
-
-            res.end();
-        }
-    } catch (err) {
-        res.status(501).send('mongo error in find id');
-        console.log('mongo error in find id', err);
-        return;
-    }
-});
 
 //짐승 삭제
 app.delete('/api/diary/animal', (req, res) => {
@@ -472,37 +352,8 @@ app.delete('/api/diary/animal', (req, res) => {
 });
 
 
-//짐승들 가져오기
-app.get('/api/diary/animals', (req, res) => {
-    console.log('dairy man');
-    console.log(req.query);
-    const {  user_id } = req.query;
-    console.log( user_id)
-    userCollection.findOne({ user_id:  user_id })
-        .then((user_data) => {
-        if (user_data == null) {
-            console.log("no data fuck");
-            res.status(409).send('id not exists');
-            return;
-        }
-        else {
-            const animals = animalCollection.find({ user_id:  user_id });
-            img = fs.readFileSync(animals.imgCrop[0]);
-            animals.imgCrop = img
-            res.status(200).send(animals);
-            return
-        }
-    })
-        .catch((err) => {
-        res.status(501).send('mongo error in find id');
-        console.log('mongo error in find id', err);
-        return;
-    });
-});
-
-
 //짐승 가져오기
-app.get('/api/diary/animal', async (req, res) => {
+app.get('/api/diary/animal', express.static("uploads"), async (req, res) => {
     console.log('dairy man');
     console.log(req.query);
     let { user_id, animal_name } = req.query;
@@ -522,12 +373,12 @@ app.get('/api/diary/animal', async (req, res) => {
 
                 if (Array.isArray(animal_results[val].imgCrop) && animal_results[val].imgCrop.length > 0) {
                     try {
-                        const data = await fs.promises.readFile(animal_results[val].imgCrop[0]);
-                        console.log(typeof(data));
-                        animal_results[val].imgCrop = data;
+                        //const data = await fs.promises.readFile(animal_results[val].imgCrop[0]);
+                        //console.log(typeof(data));
+                        //animal_results[val].imgCrop = data;
                       } catch (err) {
                         console.error('파일 읽기 오류:', err);
-                        animal_results[val].imgCrop = null;
+                        //animal_results[val].imgCrop = null;
                       }
                 }
             }
@@ -590,84 +441,7 @@ app.get('/api/diary/animal', async (req, res) => {
 
 });
 
-//짐승 이름들만 가져오기 => 유저정보 가져오기
-app.get('/api/diary/animals/name', (req, res) => {
-    console.log('dairy man');
-    console.log(req.query);
-    const { user_id } = req.query;
-    userCollection.findOne({ user_id:user_id})
-    .then((results) => {
-        if (results != null) {
-            res.status(200).send(results);
-        }
-        else {
-            res.status(409).send('user not exists');
-        }
-    })
-    .catch((err) => {
-        res.status(501).send('mongo error ');
-        console.log('mongo error ', err);
-        return;
-    });
 
-});
-
-
-//짐승 이벤트만 가져오기
-app.get('/api/diary/animal/event', (req, res) => {
-    console.log('dairy man');
-    console.log(req.query);
-    const { user_id, animal_name } = req.query;
-    userCollection.findOne({ user_id: user_id, animals: animal_name })
-        .catch((err) => {
-        res.status(501).send('mongo error in find id');
-        console.log('mongo error in find id', err);
-        return;
-    });
-    animalCollection.findOne({ user_id: user_id, name: animal_name })
-        .then((results) => {
-        var _a;
-        if (results != null) {
-            res.status(200).send((_a = results.data) === null || _a === void 0 ? void 0 : _a.events);
-        }
-        else {
-            res.status(409).send('animal not exists');
-        }
-    })
-        .catch((err) => {
-        res.status(501).send('mongo error in find animal_name');
-        console.log('mongo error in find animal_name', err);
-        return;
-    });
-});
-
-//짐승 무게만 가져오기
-app.get('/api/diary/animal/weights', (req, res) => {
-    console.log('dairy man');
-    console.log(req.query);
-    const { user_id, animal_name } = req.query;
-    userCollection.findOne({ user_id: user_id, animals: animal_name })
-        .catch((err) => {
-        res.status(501).send('mongo error in find id');
-        console.log('mongo error in find id', err);
-        return;
-    });
-    animalCollection.findOne({ user_id: user_id, name: animal_name })
-        .then((results) => {
-        var _a;
-        if (results != null) {
-            res.status(200).send((_a = results.data) === null || _a === void 0 ? void 0 : _a.weights);
-        }
-        else {
-            res.status(409).send('animal not exists');
-        }
-    })
-        .catch((err) => {
-        res.status(501).send('mongo error in find animal_name');
-        console.log('mongo error in find animal_name', err);
-        return;
-    });
-});
 
 // 서버 실행
 app.listen(3000, () => {

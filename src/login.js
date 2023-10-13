@@ -203,7 +203,7 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
                 updateData.imgCrop = img_list;
               }
               
-            animalCollection.updateOne( { user_id: user_id, name: animal_name },updateData)
+            animalCollection.updateOne( { user_id: user_id, name: animal_name },{$set: updateData})
             .then(() => {
             res.status(201).send('animal add');
              }).catch((err) => {
@@ -239,43 +239,6 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
 
 });
 
-//수정종합
-app.put('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
-    console.log('add animal');
-    console.log(req.body)
-    console.log(req.file)
-    const { user_id, animal_name, birth,sex, data} = req.body;
-    let img_list =[] 
-    if (req.file != undefined){
-      img_list.push(req.file.path)
-    }
-    userCollection.findOne({ user_id:  user_id, animals: animal_name })
-    .then((check)=>{
-        if (check == undefined ) {
-            res.status(409).send('animal no exists');
-            return;
-        }
-        else {
-           
-            
-            const new_animal = { user_id:  user_id, name: animal_name, birth: birth,sex: sex, data: data ,imgCrop:img_list };
-            animalCollection.insertOne(new_animal)
-                .then(() => {
-                res.status(201).send('animal add');
-            }).catch((err) => {
-                res.status(501).send('mongo error in add animal');
-                console.log('mongo error in add animal', err);
-                return
-            });
-        }
-    })
-    .catch((err) => {
-        res.status(501).send('mongo error in find animal');
-        console.log('mongo error in find animal', err);
-        return;
-    });
-
-});
 
 
 //짐승 이미지 추가 1개

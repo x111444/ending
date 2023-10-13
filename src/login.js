@@ -197,13 +197,12 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
             const updateData = {
                 birth: birth,
                 sex: sex,
-                data: data
               };
               if (img_list.length > 1) {
                 updateData.imgCrop = img_list;
               }
               
-            animalCollection.updateOne( { user_id: user_id, name: animal_name },{$set: updateData})
+            animalCollection.updateOne( { user_id: user_id, name: animal_name },{$set: updateData ,$push:{data: data}})
             .then(() => {
             res.status(201).send('animal add');
              }).catch((err) => {

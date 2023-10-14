@@ -186,7 +186,7 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     console.log('add animal');
     console.log(req.body)
     console.log(req.file)
-    const { user_id, animal_name, birth,sex, data} = req.body;
+    const { user_id, animal_name, birth,sex, data, weight} = req.body;
     let img_list =[] 
     if (req.file != undefined){
       img_list.push(req.file.path)
@@ -200,9 +200,17 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
               };
               if (img_list.length > 1) {
                 updateData.imgCrop = img_list;
-              }
+            }
+
+            const pushData ={ }
+            if (img_list.length > 1) {
+                pushData.data = data;
+            }
+            if (img_list.length > 1) {
+                pushData.weights = weight;
+            }
               
-            animalCollection.updateOne( { user_id: user_id, name: animal_name },{$set: updateData ,$push:{data: data}})
+            animalCollection.updateOne( { user_id: user_id, name: animal_name },{$set: updateData ,$push:pushData})
             .then(() => {
             res.status(201).send('animal add');
              }).catch((err) => {
@@ -219,7 +227,7 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
                 return;
             });
             
-            const new_animal = { user_id:  user_id, name: animal_name, birth: birth,sex: sex, data: data ,imgCrop:img_list };
+            const new_animal = { user_id:  user_id, name: animal_name, birth: birth,sex: sex, data: [],weights: [] ,imgCrop:img_list };
             animalCollection.insertOne(new_animal)
                 .then(() => {
                 res.status(201).send('animal add');
@@ -315,7 +323,7 @@ app.delete('/api/diary/animal', (req, res) => {
 
 
 //짐승 가져오기
-app.get('/api/diary/animal', express.static("uploads"), async (req, res) => {
+app.get('/api/diary/animal', async (req, res) => {
     console.log('dairy man');
     console.log(req.query);
     let { user_id, animal_name } = req.query;
@@ -335,12 +343,12 @@ app.get('/api/diary/animal', express.static("uploads"), async (req, res) => {
 
                 if (Array.isArray(animal_results[val].imgCrop) && animal_results[val].imgCrop.length > 0) {
                     try {
-                        //const data = await fs.promises.readFile(animal_results[val].imgCrop[0]);
-                        //console.log(typeof(data));
-                        //animal_results[val].imgCrop = data;
+                        const data = await fs.promises.readFile(animal_results[val].imgCrop[0]);
+                        console.log(typeof(data));
+                        animal_results[val].imgCrop = data;
                       } catch (err) {
                         console.error('파일 읽기 오류:', err);
-                        //animal_results[val].imgCrop = null;
+                        animal_results[val].imgCrop = null;
                       }
                 }
             }

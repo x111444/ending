@@ -344,7 +344,7 @@ app.get('/api/diary/animal', async (req, res) => {
                 if (Array.isArray(animal_results[val].imgCrop) && animal_results[val].imgCrop.length > 0) {
                     try {
                         const data = await fs.promises.readFile(animal_results[val].imgCrop[0]);
-                        animal_results[val].imgCrop = data.toString('base64');
+                        animal_results[val].imgCrop =`data:image/png;base64,${data.toString('base64')}`; 
                         console.log(typeof(data));
                       } catch (err) {
                         console.error('파일 읽기 오류:', err);

@@ -22,7 +22,7 @@
       for (const animal of animalResults) {
       if (animal.imgCrop) {
               const img = document.createElement('img');
-              img.src = `data:image/png;base64,${animal.imgCrop.toString('base64')}`;
+              img.src = aniaml.imgCrop
               img.alt = animal.imgCrop.toString('base64');
               imageContainer.appendChild(img);
               //title.textContent = 'clear?';

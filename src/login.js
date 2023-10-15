@@ -335,7 +335,7 @@ app.get('/api/diary/animal', async (req, res) => {
         {  
           if(animal_name === undefined)
           {
-            console.log(result)
+            
             let animal_results =  await animalCollection.find({ user_id:  user_id }).toArray()
             if (animal_results != null) {
                 for( let val in animal_results){
@@ -353,7 +353,7 @@ app.get('/api/diary/animal', async (req, res) => {
                 }
             }
             //console.log(animal_results)
-            console.log(animal_results)
+            
             return res.status(200).send(animal_results)
             
                
@@ -394,7 +394,7 @@ app.get('/api/diary/animal', async (req, res) => {
         else
         {
             
-            console.log('mongo error in find id', err);
+            console.log('mongo error in find id');
             return res.status(501).send('mongo error in find id');;
         }
     }

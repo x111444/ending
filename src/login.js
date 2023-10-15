@@ -400,8 +400,8 @@ app.get('/api/diary/animal', async (req, res) => {
     }
     catch(err)
     {
-        console.log(err.message)
-        res.status(501).send('mongo error');
+        console.error(err.message); // Log the error message for debugging
+        res.status(500).send('Internal Server Error');
     }
         
     

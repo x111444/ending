@@ -186,7 +186,7 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     console.log('add animal');
     console.log(req.body)
     console.log(req.file)
-    weights:
+    
     const { user_id, animal_name, birth,sex, data, weights} = req.body;
     let img_list =[] 
     if (req.file != undefined){

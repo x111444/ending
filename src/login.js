@@ -184,10 +184,8 @@ app.post('/api/signup', (req, res) => {
 //짐승추가종합
 app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     console.log('add animal');
-    console.log(req.body)
-    console.log(req.file)
-    
     const { user_id, animal_name, birth,sex, data, weights} = req.body;
+    console.log(user_id, animal_name, birth,sex, data, weights)
     let img_list =[] 
     if (req.file != undefined){
       img_list.push(req.file.path)
@@ -200,7 +198,7 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
               {
                 updateData.birth = birth
               }
-              if(sex != sex)
+              if(sex != undefined)
               {
                 updateData.sex =sex
               }
@@ -330,8 +328,6 @@ app.delete('/api/diary/animal', (req, res) => {
 
 //짐승 가져오기
 app.get('/api/diary/animal', async (req, res) => {
-    console.log('dairy man');
-    console.log(req.query);
     let { user_id, animal_name } = req.query;
     if(user_id  === '')
      user_id = '111'

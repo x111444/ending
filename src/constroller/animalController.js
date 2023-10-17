@@ -10,11 +10,11 @@ export const getAnimal = (req,res)={
 }
 
 export const postAnimal = async  (req, res) => {
-    const { user_id, animal_name, birth,sex, data} = req.body;
+    const { user_id, animal_name, birth,sex} = req.body;
     console.log(req.body)
     console.log(req.file)
     const imgCrop = file ? file.path : '';
-    const ok = await Animal.exists({ user_id,animals })
+    const ok = await Animal.exists({ user_id,name:animal_name })
 
     if (ok) {
         return res.status(409).send('animal already exists');
@@ -32,7 +32,8 @@ export const postAnimal = async  (req, res) => {
                 name: animal_name, 
                 birth,
                 sex, 
-                data,
+                data:[],
+                weights:[],
                 imgCrop 
             }
         )
@@ -42,18 +43,55 @@ export const postAnimal = async  (req, res) => {
 }
 
 export const addWeight = async (req,res) =>{
+   const {user_id,animal_name,weight} = req.body
+   const ok = await Animal.exists({ user_id,name:animal_name })
+   if(ok)
+   {
+         
+   }
+   else
+   {
+    res.status(501).send("no animal")
+   }
 
 }
 
-export const delWeights = async =>(req,res) =>{
-
+export const delWeights = async(req,res) =>{
+    const {user_id,animal_name,weight} = req.body
+    const ok = await Animal.exists({ user_id,name:animal_name })
+    if(ok)
+    {
+          
+    }
+    else
+    {
+     res.status(501).send("no animal")
+    }
 }
 
 export const addData = async(req,res) =>{
-
+    const {user_id,animal_name,weight} = req.body
+    const ok = await Animal.exists({ user_id,name:animal_name })
+    if(ok)
+    {
+          
+    }
+    else
+    {
+     res.status(501).send("no animal")
+    }
 }
 
 export const delData = async(req,res) =>{
-
+    const {user_id,animal_name,weight} = req.body
+    const ok = await Animal.exists({ user_id,name:animal_name })
+    if(ok)
+    {
+          
+    }
+    else
+    {
+     res.status(501).send("no animal")
+    }
 }
 

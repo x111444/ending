@@ -212,7 +212,7 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
             if (data != undefined) {
                 pushData.data = data;
             }
-            if (weights != 1) {
+            if (weights != undefined) {
                 pushData.weights = weights;
             }
               

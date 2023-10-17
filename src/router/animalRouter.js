@@ -1,13 +1,15 @@
 import express from "express";
-import {getJoin,postJoin,getLogin,postLogin} from "../constroller/animalControllers"
-import { publicOnly } from "../middlewares";
-const mainRouter = express.Router()
+import {getJoin,postJoin,getLogin,postLogin,getSerch,postSerch} from "../constroller/animalControllers"
+import { publicOnly,privateOnly } from "../middlewares";
+const animalRouter = express.Router()
+
+ animalRouter.get("/:id(\\d+)").all(privateOnly)
+
+ animalRouter.get("/").all(privateOnly)
+ animalRouter.get("/").all(privateOnly)
+
+ animalRouter.get("/").all(privateOnly)
+ animalRouter.get("/").all(privateOnly)
 
 
-mainRouter.get("/",home)
-mainRouter.route("/join").all(publicOnly).get(getJoin).post(postJoin)
-mainRouter.route("/login").all(publicOnly).get(getLogin).post(postLogin)
-mainRouter.get("/search",search)
-
-
-export default mainRouter
+export default animalRouter

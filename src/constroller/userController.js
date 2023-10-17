@@ -2,6 +2,10 @@ import User from "../models/User";
 
 
 
+export const getLogin = async(req,res) =>{
+
+}
+
 export const postLogin = async (req,res) => {
     const { username, password } = req.body;
     console.log(req.body)
@@ -27,6 +31,10 @@ export const postLogin = async (req,res) => {
     });
 }
 
+
+export const getSignup = async (req,res) =>{
+
+}
 
 export const postSignup =  async (req,res) => {
     console.log(req.body);

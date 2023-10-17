@@ -5,9 +5,12 @@ const mainRouter = express.Router()
 
 
 mainRouter.get("/",home)
+mainRouter.get("/search",search)
+mainRouter.post("/logout").all(privateOnly)
 mainRouter.route("/join").all(publicOnly).get(getJoin).post(postJoin)
 mainRouter.route("/login").all(publicOnly).get(getLogin).post(postLogin)
-mainRouter.get("/search",search)
+
+
 
 
 export default mainRouter

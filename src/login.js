@@ -186,7 +186,7 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     console.log('add animal');
     console.log(req.body)
     console.log(req.file)
-    const { user_id, animal_name, birth,sex, data, weight} = req.body;
+    const { user_id, animal_name, birth,sex, data, weights} = req.body;
     let img_list =[] 
     if (req.file != undefined){
       img_list.push(req.file.path)
@@ -194,20 +194,25 @@ app.post('/api/diary/animal', upload.single('imgCrop'), (req, res) => {
     userCollection.findOne({ user_id:  user_id, animals: animal_name })
     .then((check)=>{
         if (check != undefined ) {
-            const updateData = {
-                birth: birth,
-                sex: sex,
-              };
+            const updateData = { }
+              if(birth != undefined)
+              {
+                updateData.birth = birth
+              }
+              if(sex != sex)
+              {
+                updateData.sex =sex
+              }
               if (img_list.length > 1) {
                 updateData.imgCrop = img_list;
-            }
+              }
 
             const pushData ={ }
             if (img_list.length > 1) {
                 pushData.data = data;
             }
             if (img_list.length > 1) {
-                pushData.weights = weight;
+                pushData.weights = weights;
             }
               
             animalCollection.updateOne( { user_id: user_id, name: animal_name },{$set: updateData ,$push:pushData})

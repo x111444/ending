@@ -329,6 +329,7 @@ app.delete('/api/diary/animal', (req, res) => {
 //짐승 가져오기
 app.get('/api/diary/animal', async (req, res) => {
     let { user_id, animal_name } = req.query;
+    console.log(req.query)
     if(user_id  === '')
      user_id = '111'
     const result =  await userCollection.findOne({ user_id:  user_id })

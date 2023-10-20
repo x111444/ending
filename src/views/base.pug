@@ -1,0 +1,24 @@
+doctype html
+html(lang="ko")
+  head
+    title #{pageTitle} | WeTube
+    link(rel ="stylesheet" href="https://unpkg.com/mvp.css")
+  
+  body   
+    li
+      a(href="/") Home
+    if !loggedIn
+      li
+        a(href="/join")  Join
+      li
+        a(href="/login")  Login
+    else
+      li
+        a(href="/user/logout")  logout
+      li
+        a(href="/user/edit")  #{loggedInUser.username}'s profile                    
+    li
+      a(href="/search") Search
+    
+    block content 
+    include partials/footer

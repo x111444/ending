@@ -8,8 +8,8 @@ const  animalSchema = new mongoose.Schema({
        user_id: {type:String,required: true},
        name: {type:String,required: true},
        sex:  {type:String,required: true},
-       weights: {type:Array,required: true},
-       data: {type:Array,required:true}
+       weights: {type:Array,default:[],required: true},
+       data: {type:Array,default:[],required:true}
     },
   );
 

@@ -1,5 +1,5 @@
 import express from "express";
-import {getJoin,postJoin,getLogin,postLogin,getSerch,postSerch} from "../constroller/animalControllers"
+import {getJoin,postJoin,getLogin,postLogin,getSerch,postSerch} from "../constroller/animalController"
 import { publicOnly,privateOnly } from "../middlewares";
 const animalRouter = express.Router()
 

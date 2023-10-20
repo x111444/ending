@@ -1,16 +1,14 @@
 import express from "express";
-import {getJoin,postJoin,getLogin,postLogin} from "../constroller/userControllers"
-import { publicOnly } from "../middlewares";
-const mainRouter = express.Router()
+import {getEdit,postEdit} from "../constroller/userController"
+import { publicOnly,privateOnly } from "../middlewares";
+const userRouter = express.Router()
 
 
-mainRouter.get("/",home)
-mainRouter.get("/search",search)
-mainRouter.post("/logout").all(privateOnly)
-mainRouter.route("/join").all(publicOnly).get(getJoin).post(postJoin)
-mainRouter.route("/login").all(publicOnly).get(getLogin).post(postLogin)
+
+userRouter.post("/Edit").all(privateOnly).get(getEdit).post(postEdit)
 
 
 
 
-export default mainRouter
+
+export default userRouter

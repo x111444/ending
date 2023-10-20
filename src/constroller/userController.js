@@ -1,6 +1,9 @@
 import User from "../models/User";
 
 
+export const home = (req,res) =>{
+    res.render("main")
+}
 
 export const getLogin = async(req,res) =>{
 
@@ -78,4 +81,17 @@ export const postSignup =  async (req,res) => {
 export const logout = (req,res) => {
     req.session.destroy()
     res.status(200).sand("logout Clear")
+}
+
+export const getEdit =(req,res) =>{
+
+}
+
+export const postEdit =(req,res) =>{
+
+}
+
+
+export const serch =(req,res) =>{
+
 }
